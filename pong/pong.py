@@ -50,16 +50,27 @@ class Pong:
             self.BALL_WIDTH,
             self.BALL_WIDTH
         ))
+        
+        self.left_score = 0
+        self.right_score = 0
+    
     
     def check_ball_hits_wall(self):
         for ball in self.balls:
             if ball.x > self.WIDTH or ball.x < 0:
+                if ball.x > self.WIDTH:
+                    self.left_score += 1
+                if ball.x < 0:
+                    self.right_score += 1
                 ball.velocity = 5
                 ball.angle = 0
                 ball.x = 490
                 ball.y = 390
                 self.paddles[0].y = 350
                 self.paddles[1].y = 350
+
+                print(self.left_score, "", self.right_score)
+                
                 
             if ball.y > self.HEIGHT - self.BALL_WIDTH or ball.y < 0:
                 ball.angle = -ball.angle
