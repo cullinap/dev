@@ -58,9 +58,8 @@ class Pong:
                 ball.angle = 0
                 ball.x = 490
                 ball.y = 390
-                print(self.paddles[0])
-                self.paddles[0].y = 390
-                self.paddles[1].y = 390
+                self.paddles[0].y = 350
+                self.paddles[1].y = 350
                 
             if ball.y > self.HEIGHT - self.BALL_WIDTH or ball.y < 0:
                 ball.angle = -ball.angle
