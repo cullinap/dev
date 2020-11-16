@@ -9,8 +9,8 @@ class Pong:
     PADDLE_WIDTH = 10
     PADDLE_HEIGHT = 100
 
-    BALL_WIDTH = 10
-    BALL_VELOCITY = 10
+    BALL_WIDTH = 20 
+    BALL_VELOCITY = 5 
 
     COLOUR = (255, 255, 255)
 
@@ -53,8 +53,14 @@ class Pong:
     
     def check_ball_hits_wall(self):
         for ball in self.balls:
-            if ball.x > self.WIDTH or ball.x < 0:
-                sys.exit(1)
+            for paddle in self.paddles:
+                if ball.x > self.WIDTH or ball.x < 0:
+                    ball.velocity = 5
+                    ball.angle = 0
+                    ball.x = 490
+                    ball.y = 390
+                    paddle.y = 390
+                
             if ball.y > self.HEIGHT - self.BALL_WIDTH or ball.y < 0:
                 ball.angle = -ball.angle
 
@@ -66,6 +72,17 @@ class Pong:
                     ball.angle = random.randint(-10,10)
                     break
 
+    def draw_paddles(self):
+        for paddle in self.paddles:
+            paddle.move_paddle(self.HEIGHT)
+            pygame.draw.rect(self.screen, self.COLOUR, paddle)
+
+    def draw_balls(self):
+        for ball in self.balls:
+            print(ball.x, ball.y)
+            ball.move_ball()
+            pygame.draw.rect(self.screen, self.COLOUR, ball)
+
 
     def game_loop(self):
         while True:
@@ -75,13 +92,8 @@ class Pong:
 
             self.screen.fill((0,0,0))
 
-            for paddle in self.paddles:
-                paddle.move_paddle(self.HEIGHT)
-                pygame.draw.rect(self.screen, self.COLOUR, paddle)
-
-            for ball in self.balls:
-                ball.move_ball()
-                pygame.draw.rect(self.screen, self.COLOUR, ball)
+            self.draw_paddles()
+            self.draw_balls()
 
             self.check_ball_hits_paddle()
             self.check_ball_hits_wall()
