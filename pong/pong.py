@@ -75,6 +75,9 @@ class Pong:
                 if self.left_score > 2:
                     print("right side won")
                     sys.exit(1)
+                if self.right_score > 2:
+                    print("left side wins")
+                    sys.exit(1)
 
 
             if ball.y > self.HEIGHT - self.BALL_WIDTH or ball.y < 0:
