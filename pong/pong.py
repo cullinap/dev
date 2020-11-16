@@ -62,6 +62,7 @@ class Pong:
                     self.left_score += 1
                 if ball.x < 0:
                     self.right_score += 1
+
                 ball.velocity = 5
                 ball.angle = 0
                 ball.x = 490
@@ -70,8 +71,12 @@ class Pong:
                 self.paddles[1].y = 350
 
                 print(self.left_score, "", self.right_score)
-                
-                
+
+                if self.left_score > 2:
+                    print("right side won")
+                    sys.exit(1)
+
+
             if ball.y > self.HEIGHT - self.BALL_WIDTH or ball.y < 0:
                 ball.angle = -ball.angle
 
