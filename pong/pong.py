@@ -20,6 +20,7 @@ class Pong:
         self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         self.clock = pygame.time.Clock()
         self.central_line = pygame.Rect(self.WIDTH / 2, 0, 1, self.HEIGHT)
+        self.GAME_FONT = pygame.font.Font('freesansbold.ttf', 30)
 
         self.paddles = []
         self.balls = []
@@ -71,6 +72,8 @@ class Pong:
                 self.paddles[1].y = 350
 
                 print(self.left_score, "", self.right_score)
+                COLOUR = (255,255,255)
+                textSurf = self.GAME_FONT.render('test', True, COLOUR)
 
                 if self.left_score > 2:
                     print("right side won")
