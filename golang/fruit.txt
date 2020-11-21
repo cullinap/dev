@@ -1,0 +1,6 @@
+apples
+bananas
+pears
+apples
+oranges
+mangos
