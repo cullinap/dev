@@ -72,8 +72,6 @@ class Pong:
                 self.paddles[1].y = 350
 
                 print(self.left_score, "", self.right_score)
-                COLOUR = (255,255,255)
-                textSurf = self.GAME_FONT.render('test', True, COLOUR)
 
                 if self.left_score > 2:
                     print("right side won")
