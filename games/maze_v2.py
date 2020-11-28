@@ -84,16 +84,29 @@ while running:
         if e.type == pygame.QUIT:
             running = False
 
+    
+    x = random.randint(0,3)
+    
+    if x == 0:
+        player.move(-2,0)
+    if x == 1:
+        player.move(2,0)
+    if x == 2:
+        player.move(0,-2)
+    if x == 3:
+        player.move(0,2)
 
-    key = pygame.key.get_pressed()
-    if key[pygame.K_LEFT]:
-        player.move(-2, 0)
-    if key[pygame.K_RIGHT]:
-        player.move(2, 0)
-    if key[pygame.K_UP]:
-        player.move(0, -2)
-    if key[pygame.K_DOWN]:
-        player.move(0, 2)
+
+
+    #key = pygame.key.get_pressed()
+    #if key[pygame.K_LEFT]:
+    #    player.move(-2, 0)
+    #if key[pygame.K_RIGHT]:
+    #    player.move(2, 0)
+    #if key[pygame.K_UP]:
+    #    player.move(0, -2)
+    #if key[pygame.K_DOWN]:
+     #   player.move(0, 2)
     
     # Just added this to make it slightly fun ;)
     if player.rect.colliderect(end_rect):
