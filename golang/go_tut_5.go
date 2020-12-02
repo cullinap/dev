@@ -28,7 +28,7 @@ func (c *car) new_top_speed(newspeed float64) {
 
 func newer_top_speed(c car, speed float64) car {
     c.top_speed_kmh = speed
-    return speed
+    return c 
 }
 
 
