@@ -53,8 +53,8 @@ ends = []
 player = Player()
 
 level = [
-    "WWEWWWWWWWWWWWWWWWWWW",
-    "W                   W",
+    "WWEEEWWWWWWWWWWWWWWWW",
+    "W                   E",
     "W         WWWWWW    W",
     "W   WWWW       W    W",
     "W   W        WWWW   W",
@@ -96,11 +96,11 @@ while running:
 
     
     #x = random.randint(0,3)
-    if i < 12:
+    if i < 8:
         x = 2
-    elif i < 130:
+    elif i < 160:
         x = 1
-    elif i < 131:
+    '''elif i < 131:
         x = 3
     elif 213 >= i >= 210:
         x = 0
@@ -109,7 +109,7 @@ while running:
     elif 259 >= i > 215:
         x = 0
     elif i == 260:
-        x = 3
+        x = 3'''
 
     print(i,x)
     i+=1
