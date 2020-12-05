@@ -36,6 +36,12 @@ class Wall(object):
         walls.append(self)
         self.rect = pygame.Rect(pos[0], pos[1], 16, 16)
 
+class End(object):
+
+    def __init__(self, pos):
+        ends.append(self)
+        self.rect = pygame.Rect(pos[0], pos[1], 16, 16)
+
 pygame.init()
 
 pygame.display.set_caption("Maze game")
@@ -43,10 +49,11 @@ screen = pygame.display.set_mode((340, 260))
 
 clock = pygame.time.Clock()
 walls = []
+ends = []
 player = Player()
 
 level = [
-    "WWWWWWWWWWWWWWWWWWWWW",
+    "WWEWWWWWWWWWWWWWWWWWW",
     "W                   W",
     "W         WWWWWW    W",
     "W   WWWW       W    W",
@@ -59,7 +66,7 @@ level = [
     "WWW   W   WWWWW W   W",
     "W W      WW         W",
     "W W   WWWW   WWW    W",
-    "W     W    E   W    W",
+    "W     W        W    W",
     "WWWWWWWWWWWWWWWWWWWWW",
 ]
 
@@ -70,7 +77,8 @@ for row in level:
         if col == "W":
             Wall((x,y))
         if col == "E":
-            end_rect = pygame.Rect(x, y, 16, 16)
+            End((x,y))
+            #end_rect = pygame.Rect(x, y, 16, 16)
         x += 16
     y += 16
     x = 0
@@ -80,7 +88,7 @@ i = 0
 running = True
 while running:
 
-    clock.tick(30)
+    clock.tick(5)
 
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
@@ -88,7 +96,7 @@ while running:
 
     
     #x = random.randint(0,3)
-    if i < 10:
+    if i < 12:
         x = 2
     elif i < 130:
         x = 1
@@ -125,16 +133,29 @@ while running:
     #    player.move(0, -2)
     #if key[pygame.K_DOWN]:
      #   player.move(0, 2)
+
     
+    #for wall in walls:
+    #    if player.rect.colliderect(pygame.rect(0,5,16,16)):
+
+    #        print('collide')
+    #        raise SystemExit
+        #print(wall.rect[0], wall.rect[1])
+
+
+
     # Just added this to make it slightly fun ;)
-    if player.rect.colliderect(end_rect):
-        raise SystemExit 
+    for end in ends:
+        if player.rect.colliderect(end.rect):
+            raise SystemExit 
     
     # Draw the scene
     screen.fill((0, 0, 0))
     for wall in walls:
         pygame.draw.rect(screen, (255, 255, 255), wall.rect)
-    pygame.draw.rect(screen, (255, 0, 0), end_rect)
+    for end in ends:
+        pygame.draw.rect(screen, (255, 0, 0), end.rect)
+
     pygame.draw.rect(screen, (255, 200, 0), player.rect)
     pygame.display.flip()
 
