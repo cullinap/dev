@@ -75,18 +75,36 @@ for row in level:
     y += 16
     x = 0
 
+i = 0
+
 running = True
 while running:
 
-    clock.tick(60)
+    clock.tick(30)
 
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
             running = False
 
     
-    x = random.randint(0,3)
-    
+    #x = random.randint(0,3)
+    if i < 10:
+        x = 2
+    elif i < 130:
+        x = 1
+    elif i < 131:
+        x = 3
+    elif 213 >= i >= 210:
+        x = 0
+    elif i == 214:
+        x = 2
+    elif 259 >= i > 215:
+        x = 0
+    elif i == 260:
+        x = 3
+
+    print(i,x)
+    i+=1
     if x == 0:
         player.move(-2,0)
     if x == 1:
