@@ -1,6 +1,7 @@
 import pygame
 import random
 import pandas as pd
+import os.path
 
 class Player(object):
 
@@ -88,6 +89,9 @@ i = 0
 
 moves = []
 
+if os.path.isfile('data.csv'):
+    y = pd.read_csv('data.csv')['0'].max() 
+
 running = True
 while running:
 
@@ -98,7 +102,7 @@ while running:
             running = False
 
     
-    y = pd.read_csv('data.csv')['0'].max()  
+    #y = pd.read_csv('data.csv')['0'].max()  
     #x = random.randint(0,3)
     if i < y - 1:
         x = 2
