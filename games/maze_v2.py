@@ -1,5 +1,6 @@
 import pygame
 import random
+import pandas as pd
 
 class Player(object):
 
@@ -85,6 +86,8 @@ for row in level:
 
 i = 0
 
+moves = []
+
 running = True
 while running:
 
@@ -113,6 +116,7 @@ while running:
 
     print(i,x)
     i+=1
+
     if x == 0:
         player.move(-2,0)
     if x == 1:
@@ -143,10 +147,12 @@ while running:
         #print(wall.rect[0], wall.rect[1])
 
 
-
+    moves.append([i,x])
     # Just added this to make it slightly fun ;)
     for end in ends:
         if player.rect.colliderect(end.rect):
+            df = pd.DataFrame(moves)
+            df.to_csv('data.csv')
             raise SystemExit 
     
     # Draw the scene
