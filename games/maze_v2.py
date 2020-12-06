@@ -98,8 +98,9 @@ while running:
             running = False
 
     
+    y = pd.read_csv('data.csv')['0'].max()  
     #x = random.randint(0,3)
-    if i < 8:
+    if i < y - 1:
         x = 2
     elif i < 160:
         x = 1
