@@ -15,6 +15,12 @@ class Wall(object):
         walls.append(self)
         self.rect = pygame.Rect(pos[0], pos[1], 16, 16)
 
+class End(object):
+
+    def __init__(self, pos):
+        ends.append(self)
+        self.rect = pygame.Rect(pos[0], pos[1], 16, 16)
+
 level = [
     "WWWWEWWWWWWWWWWWWWWWW",
     "W                   E",
@@ -34,6 +40,7 @@ level = [
 ]
 
 walls = []
+ends = []
 
 x,y = 0,0
 
@@ -41,6 +48,8 @@ for row in level:
     for col in row:
         if col == "W":
             Wall((x,y))
+        if col == "E":
+            End((x,y))
         x += 16
     y += 16
     x = 0
@@ -64,6 +73,9 @@ while running:
     # draw some stuff hre
     for wall in walls:
         pygame.draw.rect(screen, (255, 255, 255), wall.rect)
+
+    for end in ends:
+        pygame.draw.rect(screen, (255, 0,0 ), end.rect)
         
     # update the screen with what was drawn
     pygame.display.flip()
