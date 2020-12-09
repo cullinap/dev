@@ -57,6 +57,13 @@ for row in level:
 
 running = True
 
+class Player(object):
+
+    def __init__(self):
+        self.rect = pygame.Rect(32, 32, 16, 16)
+
+player = Player()
+
 # game loop
 while running:
     
@@ -76,6 +83,8 @@ while running:
 
     for end in ends:
         pygame.draw.rect(screen, (255, 0,0 ), end.rect)
+
+    pygame.draw.rect(screen, (255, 200, 0), player.rect)
         
     # update the screen with what was drawn
     pygame.display.flip()
