@@ -15,6 +15,35 @@ rects
 from the previous experience (using the 
 left/right hand rule)
 
+I want to research some algorithms 
+for finding a way to solve the maze
+problem and then do a write up 
+on my progress
+
+https://www.youtube.com/watch?v=8Hs5gptvBxU 
+
+left-hand rule
+-start
+-reach the end? 
+ -yes - end
+ -no - next
+is there a wall to the left?
+ -yes - rotate ccw (left) move forward 
+ -no - next
+is there a cell in the front free?
+ -yes - move forward, jump to top
+ -no - rotate cw (right)
+
+
+pledge algorithm
+
+tremaux algorithm
+
+https://cs.stanford.edu/people/eroberts/courses/cs106b/handouts/16-RecursiveBacktracking.pdf
+
+I want to figure out why the algorithm 
+is not saving data to the new dataframe
+
 
 
 

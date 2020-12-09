@@ -55,7 +55,7 @@ ends = []
 player = Player()
 
 level = [
-    "WWEEEWWWWWWWWWWWWWWWW",
+    "WWWWEWWWWWWWWWWWWWWWW",
     "W                   E",
     "W         WWWWWW    W",
     "W   WWWW       W    W",
@@ -80,22 +80,34 @@ for row in level:
             Wall((x,y))
         if col == "E":
             End((x,y))
-            #end_rect = pygame.Rect(x, y, 16, 16)
+            end_rect = pygame.Rect(x, y, 16, 16)
         x += 16
     y += 16
     x = 0
 
 i = 0
+dx = 0
+dy = 0
+player = pygame.Rect(32,32,16,16)
 
 moves = []
 
-if os.path.isfile('data.csv'):
-    y = pd.read_csv('data.csv')['0'].max() 
+NEXT = False
 
+if os.path.isfile('data.csv'):
+    NEXT = True
+    df = pd.read_csv('data.csv')
+    up = df.loc[df['1'] == 2]['0'].max()
+    ri = df.loc[df['1'] == 1]['0'].max()
+    #y = pd.read_csv('data.csv')['0'].max() 
+
+print(df['0'].count() )
+
+print(up, ri)
 running = True
 while running:
 
-    clock.tick(5)
+    clock.tick(20)
 
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
@@ -104,10 +116,18 @@ while running:
     
     #y = pd.read_csv('data.csv')['0'].max()  
     #x = random.randint(0,3)
-    if i < y - 1:
-        x = 2
-    elif i < 160:
-        x = 1
+    
+    for wall in walls:
+        if player.rect.colliderect(end_rect):
+            raise SystemExit
+        elif player.rect.colliderect(wall.rect):
+            if wall    
+             
+     
+
+    
+    
+
     '''elif i < 131:
         x = 3
     elif 213 >= i >= 210:
@@ -119,6 +139,7 @@ while running:
     elif i == 260:
         x = 3'''
 
+    '''
     print(i,x)
     i+=1
 
@@ -130,6 +151,7 @@ while running:
         player.move(0,-2)
     if x == 3:
         player.move(0,2)
+    '''
 
 
 
@@ -152,13 +174,10 @@ while running:
         #print(wall.rect[0], wall.rect[1])
 
 
-    moves.append([i,x])
     # Just added this to make it slightly fun ;)
-    for end in ends:
-        if player.rect.colliderect(end.rect):
-            df = pd.DataFrame(moves)
-            df.to_csv('data.csv')
-            raise SystemExit 
+    #for end in ends:
+    #    if player.rect.colliderect(end.rect):
+    #        raise SystemExit 
     
     # Draw the scene
     screen.fill((0, 0, 0))

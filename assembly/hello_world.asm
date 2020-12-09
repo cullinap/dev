@@ -3,22 +3,22 @@
 ; Author: Patrick Cullinane
 ; Date: 1-Dec-2020
 
-global start
+global     start
 
-section .text
+section    .text
 
-start:
-    mov rax, 0x02000004
-    mov rdi, 1
-    mov rsi, message
-    mov rdx, 13
+start:   
+    mov        rax, 0x02000004    
+    mov        rdi, 1
+    mov        rsi, message
+    mov        rdx, 13
     syscall
-    mov rax, 0x02000001
-    xor rdi, rdi
+
+    mov        rax, 0x02000001
+    mov        rdi, 0
     syscall
-    
-    section .data
 
-message:
-    db  "Hello, World", 10 
 
+section    .data
+
+message: db     "hello, world", 10
