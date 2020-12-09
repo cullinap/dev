@@ -63,6 +63,7 @@ class Player(object):
         self.rect = pygame.Rect(32, 32, 16, 16)
 
 player = Player()
+x,y = 0,0
 
 # game loop
 while running:
@@ -72,6 +73,10 @@ while running:
             running = False # stop the game loop
     
     # game logic here
+
+    x += 1
+    
+    player.rect.x = x
 
     # fill the screen to white 
     # draw commands above will be erased
