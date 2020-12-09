@@ -22,7 +22,7 @@ class End(object):
         self.rect = pygame.Rect(pos[0], pos[1], 16, 16)
 
 level = [
-    "WWWWEWWWWWWWWWWWWWWWW",
+    "WWWWWWWWWWWWWWWWWWWWW",
     "W                   E",
     "W         WWWWWW    W",
     "W   WWWW       W    W",
@@ -54,16 +54,16 @@ for row in level:
     y += 16
     x = 0
 
-
 running = True
-
 class Player(object):
 
     def __init__(self):
         self.rect = pygame.Rect(32, 32, 16, 16)
 
 player = Player()
-i,x,y = 0,0,0
+i,x,y = 0,32,32
+
+import random
 
 # game loop
 while running:
@@ -73,17 +73,18 @@ while running:
             running = False # stop the game loop
     
     # game logic here
-    
-
     x += 1
-    i += 1
-    if i % 20 == 0:
-        y += 1
-
-
 
     player.rect.x = x
     player.rect.y = y
+
+    for wall in walls:
+        if player.rect.colliderect(wall.rect):
+            if x > 0:
+                player.rect.right = wall.rect.left
+            if x < 0:
+                player.rect.left = wall.rect.right
+
 
     # fill the screen to white 
     # draw commands above will be erased
