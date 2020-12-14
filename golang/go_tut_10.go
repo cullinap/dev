@@ -15,6 +15,10 @@ type Location struct {
     Loc string `xml:"loc"`
 }
 
+func (L Location) String() string {
+    return fmt.Sprintf(L.Loc)
+}
+
 func main() {
     resp, _ := http.Get("https://www.washingtonpost.com/news-sitemaps/index.xml")
     bytes, _ := ioutil.ReadAll(resp.Body)
