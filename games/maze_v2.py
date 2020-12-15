@@ -121,7 +121,7 @@ while running:
         if player.rect.colliderect(end_rect):
             raise SystemExit
         elif player.rect.colliderect(wall.rect):
-            if wall    
+            print('celebrate!')   
              
      
 
