@@ -56,9 +56,18 @@ size_t Block::generateHash() {
 	return finalHash(hash1(toHash) + hash2(previousHash));
 };
 
+// public fns
+size_t Block::getHash() {
+	return blockHash;
+}
 
+size_t Block::getPreviousHash() {
+	return previousHash;
+}
 
-
+bool Block::isHashValid() {
+	return generateHash() == blockHash;
+}
 
 // blockchain
 class Blockchain {
