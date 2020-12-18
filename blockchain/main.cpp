@@ -88,6 +88,25 @@ class Blockchain {
 		// Contrived Example for demo only!!
 		Block *getLatestBlock();
 
+};
+
+// Blockchain constructor
+Blockchain::Blockchain() {
+	Block genesis = createGenesisBlock();
+	chain.push_back(genesis);
+}
+
+Block Blockchain::createGenesisBlock() {
+	time_t current;
+	TransactionData d;
+	d.amount = 0;
+	d.receiveKey = "None";
+	d.senderKey = "None";
+	d.timestamp = time(&current);
+
+	hash<int> hash1;
+	
+	
 }
 
 
