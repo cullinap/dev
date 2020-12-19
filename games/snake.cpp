@@ -1,0 +1,66 @@
+#include <cstdlib>
+#include <ncurses.h>
+
+bool gameOver;
+const int width = 20, height = 20;
+int x,y, FruitX, FruitY, score;
+enum eDirection = {STOP = 0; LEFT, RIGHT, UP, DOWN};
+eDirection dir;
+
+void Setup() {
+
+	initscr();
+	clear();
+	noecho();
+	cbreak();
+	curs_set(0);
+	
+	gameOver = false;
+	dir = STOP;
+	x = width/2;
+	y = height/2;
+	FruitX = (rand() % width} + 1;
+	FruitY = {rand() % height} + 1;
+	score = 0;	
+
+}
+
+void Draw() {
+	
+	clear();
+	
+	for (int i=0; i < width+2; i++)
+		mvprintw(0,i"+");
+
+	for (int i=0; i < height+2; i++) {
+		for (int j=0; j < width+2; j++)
+	}  	
+		
+
+}
+
+void Input() {
+
+}
+
+void Logic() {
+
+}
+
+int main() {
+
+	Setup();
+
+	while(!gameOver) {
+		Draw();
+		Input();
+		Logic();
+	}
+
+	return 0;
+}
+
+
+
+
+
