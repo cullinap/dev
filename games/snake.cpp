@@ -19,7 +19,7 @@ void Setup() {
 	dir = STOP;
 	x = width/2;
 	y = height/2;
-	FruitX = (rand() % width} + 1;
+	FruitX = {rand() % width} + 1;
 	FruitY = {rand() % height} + 1;
 	score = 0;	
 
@@ -30,13 +30,24 @@ void Draw() {
 	clear();
 	
 	for (int i=0; i < width+2; i++)
-		mvprintw(0,i"+");
+		mvprintw(0,i,"+");
 
 	for (int i=0; i < height+2; i++) {
-		for (int j=0; j < width+2; j++)
+		for (int j=0; j < width+2; j++) {
+			if (i == 0 | i == 21) 
+				mvprintw(i,j,"*");
+			else if (j == 0 | j == 21) 
+				mvprintw(i,j,"+");
+			else if (i == y && j == x)
+				mvprintw(i,j,"0");
+			else if (i == FruitY && j == FruitX)
+				mvprintw(i,j,"0");
+		}
 	}  	
 		
+	mvprintw(23,0,"Score %d",score);
 
+	refresh();
 }
 
 void Input() {
@@ -50,12 +61,13 @@ void Logic() {
 int main() {
 
 	Setup();
+	Draw();
 
-	while(!gameOver) {
+	/*while(!gameOver) {
 		Draw();
 		Input();
 		Logic();
-	}
+	}*/
 
 	return 0;
 }
