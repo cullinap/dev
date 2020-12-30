@@ -24,7 +24,7 @@ def run_test(questions):
             answer = input("\n" + question.prompt + "\n")
             if answer == question.answer:
                 score += 1
-        print(f'\n\tYou got {score}/{len(questions)} correct')
+        print(f'\nYou got {score}/{len(questions)} correct')
 
         with open('score.txt', 'a+') as file_object:
             now = dt.datetime.now()
