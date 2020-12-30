@@ -1,8 +1,11 @@
 import os
 from flask import Flask, render_template, request, redirect, flash, url_for, session
+from datetime import timedelta
+
 
 app = Flask(__name__)
 app.secret_key = "temp_key"
+app.permanent_session_lifetime = timedelta(days=300)
 
 # @app.route('/', methods=["GET","POST"])
 # def login():
@@ -21,13 +24,14 @@ def home():
 @app.route('/login', methods=['POST','GET'])
 def login():
 	if request.method == "POST":
+		session.permanent = True
 		user = request.form['nm']
 		session['user'] = user
 		return redirect(url_for('user'))
 	else:
 		if 'user' in session:
 			return redirect(url_for('user'))
-			
+
 		return render_template('login.html')
 
 @app.route('/user')
