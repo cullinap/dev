@@ -25,29 +25,34 @@ def home():
 # set login screen get=unsecure post=secure
 @app.route('/login', methods=['POST','GET'])
 def login():
-	if request.method == "POST": # 
+	if request.method == "POST": # check if we reached page with POST request, if POST take name info 
 		session.permanent = True # set permanent session
-		user = request.form['nm'] # 
-		session['user'] = user
-		return redirect(url_for('user'))
+		user = request.form['nm'] # take data from login.html form 
+		session['user'] = user # set the session user name to name from request form
+		flash("Login Successful!")
+		return redirect(url_for('user')) # go to user page with session info
 	else:
 		if 'user' in session:
-			return redirect(url_for('user'))
+			flash("Already logged in!")
+			return redirect(url_for('user')) # if you already logged in
 
-		return render_template('login.html')
+		return render_template('login.html') # if method not post go back to login
 
+# user page
 @app.route('/user')
 def user():
-	if "user" in session:
-		user = session["user"]
-		return f"<h1>{user}</h1>"
+	if "user" in session: # check if the user is in session
+		user = session["user"] # set the user variable to the value assoaciated with user session
+		return f"<h1>{user}</h1>" # return a page showing the user's name
 	else:
-		return redirect(url_for('login'))
+		flash("You are not logged in")
+		return render_template("user.html", user=user)  # if user not in session go back to login
 
-@app.route('/logout')
+@app.route('/logout') # logout page
 def logout():
-	session.pop("user", None)
-	return redirect(url_for('login'))
+	flash("You have been logged out", "info")
+	session.pop("user", None) # remove curent user session name
+	return redirect(url_for('login')) # got back to the login page
 
 
 # @app.route('/')
