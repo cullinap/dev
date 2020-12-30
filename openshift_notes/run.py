@@ -55,22 +55,27 @@ def match_page_info_with_url(json_file, number):
 
 	return riddle 
 
+# feed data from json file to the page
+# I then want o click to the next page and feed new json data to that
+
 
 @app.route('/quiz')
 def quiz_app():
 	total = session['url'] - 1
 	session['url'] = 1
 	user = session["user"]
+	riddle = {}
 	with open(quiz_data, "r") as json_data:
 		data = json.load(json_data)
 		for obj in data:
-			riddle = obj
+			if obj['url'] == str(1):
+				riddle = obj
 
+	#return f'<h1>{riddle}</h1>'
 
 	#riddle = match_page_info_with_url(quiz_data, session['url'])
 
 	return render_template('member.html', riddle=riddle, user=user, total=total)
-
 
 # user page
 @app.route('/user')
