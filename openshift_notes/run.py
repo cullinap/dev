@@ -7,14 +7,13 @@ app = Flask(__name__)
 def index():
 	return render_template("index.html")
 
+@app.route('/leaderboard')
+def leaderboard():
+    return render_template("leaderboard.html")
+    
+@app.route('/riddles')
+def riddles():
+    return render_template("riddles.html")
 
-print(os.environ.get('IP'))
 
-
-
-# if __name__ == '__main__':
-# 	app.run(host=os.environ.get('IP'), 
-# 			port=int(os.environ.get('PORT')),
-# 		    debug = True
-# 		)
 
