@@ -1,5 +1,9 @@
 {% extends 'base.html' %} {% block content %}
 
-	<h4>{{ user.username }}, your score is {{ user.score }} / {{ total }}</h4>
+	<h4>{{ user }}, your score is {{ user.score }} / {{ total }}</h4>
+
+	<div class="col-xs-12">
+		<p>{{riddle}}</p>
+	</div>
 
 {% endblock %}
