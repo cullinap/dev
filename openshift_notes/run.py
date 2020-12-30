@@ -4,8 +4,8 @@ from datetime import timedelta
 
 
 app = Flask(__name__)
-app.secret_key = "temp_key"
-app.permanent_session_lifetime = timedelta(days=300)
+app.secret_key = "temp_key" # set the secret key 
+app.permanent_session_lifetime = timedelta(days=300) # establish session lifetime
 
 # @app.route('/', methods=["GET","POST"])
 # def login():
@@ -17,15 +17,17 @@ app.permanent_session_lifetime = timedelta(days=300)
 # 		return redirect('leaderboard')
 # 	return render_template("index.html")
 
+# set home screen
 @app.route('/')
 def home():
 	return render_template('index.html')
 
+# set login screen get=unsecure post=secure
 @app.route('/login', methods=['POST','GET'])
 def login():
-	if request.method == "POST":
-		session.permanent = True
-		user = request.form['nm']
+	if request.method == "POST": # 
+		session.permanent = True # set permanent session
+		user = request.form['nm'] # 
 		session['user'] = user
 		return redirect(url_for('user'))
 	else:
