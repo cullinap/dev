@@ -55,27 +55,52 @@ def match_page_info_with_url(json_file, number):
 
 	return riddle 
 
+class Quiz(object):
+	def __init__(self):
+		#self.username = username
+		self.score = 0
+		self.url = 1
+
+	def get_url(self):
+		return self.url
+
+	def correct_answer(self):
+		self.url += 1
+
+	def pass_question(self):
+		self.url += 1
+
+quiz = Quiz()
+
+
 # feed data from json file to the page
 # I then want o click to the next page and feed new json data to that
 
 
 @app.route('/quiz')
 def quiz_app():
-	total = session['url'] - 1
-	session['url'] = 1
+	total = 0
+	#session['url'] = 1
 	user = session["user"]
-	riddle = {}
-	with open(quiz_data, "r") as json_data:
-		data = json.load(json_data)
-		for obj in data:
-			if obj['url'] == str(1):
-				riddle = obj
+	riddle = match_page_info_with_url(quiz_data, quiz.get_url())
 
-	#return f'<h1>{riddle}</h1>'
-
-	#riddle = match_page_info_with_url(quiz_data, session['url'])
 
 	return render_template('member.html', riddle=riddle, user=user, total=total)
+
+
+@app.route('/submit_answer', methods=['POST'])
+def submit_answer():
+	riddle = match_page_info_with_url(quiz_data, quiz.get_url())
+	if request.method == 'POST':
+		guess = request.form['answer'].strip().title()
+		answer = riddle['answer']
+		quiz.correct_answer()
+
+	#return render_template('member.html', riddle=riddle, user=user, total=total)
+	return redirect(url_for('quiz_app'))
+
+
+
 
 # user page
 @app.route('/user')

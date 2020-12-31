@@ -7,4 +7,26 @@
 		<p>{{riddle.url}}></p>
 	</div>
 
+	<div class="col-xs-12 ">
+            <div class="row">
+
+                <form method="post" action="{{ url_for('submit_answer') }}" id="submit_answer_form">
+                    <div class="form-group">
+
+                        <input type="text" name="answer"  id="user_guess"/>
+                        <input type="hidden" id='url' name="url" value="{{ riddle.url }}" />
+                        <input type="hidden" id='solution' name="solution" value="{{ riddle.answer }}" />
+                        <button type="submit" class="btn btn-outline-primary submit" id="submit_btn">Submit</button>
+
+
+                    </div>
+				</form>
+                </form id="skip">
+                <div class="form-group">
+                    <form method="POST" action="/skip_question">
+                        <button type="submit" class="btn btn-outline-primary skip" id ="skip_btn">Skip</button>
+                    </form>
+                </div>
+            </div>
+
 {% endblock %}
