@@ -64,11 +64,16 @@ class Quiz(object):
 	def get_url(self):
 		return self.url
 
+	def get_score(self):
+		return self.score
+
 	def correct_answer(self):
 		self.url += 1
+		self.score += 1
 
 	def pass_question(self):
 		self.url += 1
+
 
 quiz = Quiz()
 
@@ -79,13 +84,14 @@ quiz = Quiz()
 
 @app.route('/quiz')
 def quiz_app():
-	total = 0
+	total = 2
+	score = quiz.get_score()
 	#session['url'] = 1
 	user = session["user"]
 	riddle = match_page_info_with_url(quiz_data, quiz.get_url())
 
 
-	return render_template('member.html', riddle=riddle, user=user, total=total)
+	return render_template('member.html', riddle=riddle, user=user, total=total, score=score)
 
 
 @app.route('/submit_answer', methods=['POST'])
@@ -94,7 +100,8 @@ def submit_answer():
 	if request.method == 'POST':
 		guess = request.form['answer'].strip().title()
 		answer = riddle['answer']
-		quiz.correct_answer()
+		if guess == answer:
+			quiz.correct_answer()
 
 	#return render_template('member.html', riddle=riddle, user=user, total=total)
 	return redirect(url_for('quiz_app'))
