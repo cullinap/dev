@@ -51,6 +51,17 @@ def match_question_with_url(number):
 
 	return question
 
+def match_answer_with_url(number):
+	answer = {}
+	with open ('./data/quiz_data.json', 'r') as json_data:
+		testData = json.load(json_data)
+		for obj in testData:
+			if obj['url'] == str(number):
+				answer = obj
+
+	return answer['answer']
+
+
 class Quiz(object):
 	def __init__(self):
 		self.url = 1
@@ -107,7 +118,7 @@ def submit_data():
 	if request.method == 'POST':
 		req = request.form # fetch info from form posted
 		answer = req.get('answer') # get username from form
-		if answer == 'Time':
+		if answer == match_answer_with_url(quiz.get_url()): # get answer from json
 			quiz.correct_answer()
 		else:
 			quiz.wrong_answer()
@@ -115,12 +126,19 @@ def submit_data():
 
 	return redirect(url_for('vmd_timestamp'))
 
+
 @app.route('/button', methods=['POST'])
 def button():
 	if request.method == 'POST':
 		return redirect(url_for('home'))
 	# if request.method == 'POST':
 	# 	return redirect(url_for('home'))
+
+
+
+
+
+
 
 
 ################## OLD STUFF ########################
