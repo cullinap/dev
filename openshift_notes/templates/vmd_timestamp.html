@@ -8,30 +8,38 @@
 	<body>
 		<h2>Vehicle info Dashboard Page 2</h2>
 
-<!-- 		<p align="center"><a href='/home' ><button class=grey style="height:75px;width:150px">go back</button></a></p> -->
 
 			<div class="row">
 				<div class="col">
-					<h1>Sign up </h1>
+					{% if score %}
+						<h1>{{ score }}</h1>
+					{% endif %}
 					<hr>
+					{% if question %}
+						<p>{{ question.riddle }}</p>
+					{% endif %}
 					<!-- create an HTML form, action specifies where to send form-data when a form is submitted method determines how to send data, post appends the data insside the body of the HTTP request which means that data is not show inside URL, form submissions with post cannot be bookmarked -->
-					<form action="/vmd_timestamp" method="POST">
+					<form action="/submit_data" method="POST">
 						<!-- defines division HTML styled with form-group CSS -->
 						<div class="form-group">
 							<!-- caption for an item for associates it with an input-->
-							<label for="username">Username</label>
+							<label for="answer">Answer</label>
 							<!-- create interactive controls to accept data type=text creates text field-->
-							<input type="text" class="form-control" id="username" name="username" placeholder="Select a username">
+							<input type="text" class="form-control" id="answer" name="answer" placeholder="input an answer">
 							<!-- represents a clickable button to submit forms type=submit, submits data to server-->
-							<button type="submit" class="btn but-primary">Sign up </button>
+							<button type="submit" class="btn but-primary">Submit</button>
 						</div>
 					</form>
-					{% if username %}
-						<p class="text-danger float-right">{{ username }}</p>
+					{% if answer %}
+						<p class="text-danger float-right">{{ answer }}</p>
 					{% endif %}
-					{% if jsonfile %}
-						<p>{{ jsonfile }}</p>
-					{% endif %}
+
+					<div class="container">
+    					<form action="{{ url_for('home') }}" method="post">
+            				<input type="submit">
+        				</form>
+ 					</div>`
+
 				</div>
 			</div>
 		</form>

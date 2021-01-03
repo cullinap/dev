@@ -41,8 +41,38 @@ def login():
 
 	return render_template('index.html')
 
-with open ('./data/quiz_data.json', 'r') as json_data:
-	testData = json_data.read()
+def match_question_with_url(number):
+	question = {}
+	with open ('./data/quiz_data.json', 'r') as json_data:
+		testData = json.load(json_data)
+		for obj in testData:
+			if obj['url'] == str(number):
+				question = obj
+
+	return question
+
+class Quiz(object):
+	def __init__(self):
+		self.url = 1
+		self.score = 0
+
+	def get_url(self):
+		return self.url
+
+	def get_score(self):
+		return self.score
+
+	def get_question_asked(self):
+		return str(self.url)
+
+	def correct_answer(self):
+		self.url += 1
+		self.score += 1
+
+	def wrong_answer(self):
+		self.score -= 1 
+
+quiz = Quiz()
 
 # define a route listening at /home and execute a fn named home
 # accept the GET and POST HTTP methods
@@ -52,22 +82,49 @@ def home(): #view function
 	# generated via jinja assuming we have a templates folder
 	# accepts one positinal argument which is the template to render
 	# also accepts kwargs values to be passed to the template
+	quiz.score = 0
+	quiz.url = 1
 	return render_template('home.html')
 
 @app.route('/vmd_timestamp', methods=['GET','POST'])
 def vmd_timestamp():
+	question = match_question_with_url(quiz.get_url())
+	score = str(quiz.get_score())
 	# request object with method to access a route
 	# can be used to have one route serve multiple
 	# different responses depending on what method was used to
 	# call said route
-	if request.method == "POST":
-		req = request.form # fetch info from form posted
-		username = req.get('username') # get username from form
-		return render_template("/vmd_timestamp.html", username=username)
+	
 
 		# accepts string which will be the path to
 		# redirect the user to 
-	return render_template('/vmd_timestamp.html', jsonfile=json.dumps(testData))
+	return render_template('/vmd_timestamp.html', question=question, score=score)
+
+@app.route('/submit_data', methods=['POST'])
+def submit_data():
+	question = match_question_with_url(quiz.get_url())
+	score = str(quiz.get_score())
+	if request.method == 'POST':
+		req = request.form # fetch info from form posted
+		answer = req.get('answer') # get username from form
+		if answer == 'Time':
+			quiz.correct_answer()
+		else:
+			quiz.wrong_answer()
+			redirect(url_for('vmd_timestamp'))
+
+	return redirect(url_for('vmd_timestamp'))
+
+@app.route('/button', methods=['POST'])
+def button():
+	if request.method == 'POST':
+		return redirect(url_for('home'))
+	# if request.method == 'POST':
+	# 	return redirect(url_for('home'))
+
+
+################## OLD STUFF ########################
+
 
 
 @app.route('/quiz', methods=['GET','POST'])
