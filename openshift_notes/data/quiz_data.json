@@ -1,6 +1,6 @@
 [
 	{
-        "riddle"       : "This thing all things devours: Birds, beasts, trees, flowers; Gnaws iron, bites steel; Grinds hard stones to meal; Slays king, ruins town, And beats high mountain down",
+        "riddle"       : "Perform a smoke test of the cluster to verify basic cluster functionality. Use a deployment configuration to create an application named hello-world-nginx.",
         "answer"       : "Time",
         "url"          : "1",
         "image_source" : "http://img.playbuzz.com/image/upload/f_auto,fl_lossy,q_auto/cdn/79003510-1e28-4caa-8067-0f850a1b30bb/20b6a5af-2be2-4592-81b1-0b27045fa05c.jpg"
@@ -15,4 +15,10 @@
         "original_source": "http://78.media.tumblr.com/f1eb583b52d43019744de0687f9f7589/tumblr_o8ho9omAB21qh5xqho3_1280.jpg"
     }
 ]
+
+
+
+
+ 
+ 
 
