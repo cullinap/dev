@@ -27,10 +27,11 @@
 
       .terminal{
         background: black;
-        color: white;
-        font: courier;
+        color: #45D40C;
+        font: 1.0em 'Andale Mono', Consolas, 'Courier New';
         padding: 10px;
-        height: 200px;
+        height: 300px;
+        width: 500px;
         overflow: hidden;
       }
 
@@ -49,9 +50,9 @@
         width: 100%;
         border: none;
         background: black;
-        color: white;
+        color: #45D40C;
         outline: none;
-        font-size: 20px;
+        font: 1.0em 'Andale Mono', Consolas, 'Courier New';
       }
 
     </style>
@@ -116,7 +117,7 @@
           </div>
           <!-- current line of terminal, onkeydown="myFunction(event)" was the JS controller -->
           <div class="line">
-            <span id="path">c:/&nbsp;>&nbsp;</span> <!-- c:/>--> 
+            <span id="path">user@ubuntu:~$&nbsp;</span> <!-- c:/>--> 
             <input type="text" id="answer" name="answer"> <!-- line input --> 
           </div>
         </div>
