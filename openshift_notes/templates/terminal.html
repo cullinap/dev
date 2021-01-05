@@ -30,8 +30,8 @@
         color: #45D40C;
         font: 1.0em 'Andale Mono', Consolas, 'Courier New';
         padding: 10px;
-        height: 300px;
-        width: 500px;
+        height: 500px;
+        width: 1000px;
         overflow: hidden;
       }
 
@@ -58,6 +58,23 @@
     </style>
     </head>
     <body>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          
+          <a class="navbar-brand" href="{{ url_for('home') }}">Home</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+
+     
+            </ul>
+          </div>
+        </div>
+      </nav>
+
       <script>
       // document.ready(function())
       $(function() {
@@ -86,17 +103,11 @@
         });
       </script>
 
-      <div class="container">
-            <!-- submit button with url_for home using post method -->
-            <form action="{{ url_for('home') }}" method="post">
-                  <input type="submit">
-            </form>
-      </div>`
 
       <div class="row">
         <div class="col">
           {% if score %}
-            <h1>{{ score }}</h1>
+            <h1>Score: {{ score }}</h1>
           {% endif %}
           <hr>
 
@@ -105,6 +116,9 @@
           {% endif %}
           {% if answer %}
                 <p>{{ question.answer }}</p>
+          {% endif %}
+          {% if hint %}
+                <p>{{ question.hint }}</p>
           {% endif %}
         </div>
       </div>
@@ -118,10 +132,10 @@
           <!-- current line of terminal, onkeydown="myFunction(event)" was the JS controller -->
           <div class="line">
             <span id="path">user@ubuntu:~$&nbsp;</span> <!-- c:/>--> 
-            <input type="text" id="answer" name="answer"> <!-- line input --> 
+            <input type="text" id="answer" name="answer" autocomplete="off"> <!-- line input --> 
           </div>
         </div>
-        <button type="submit" class="btn but-primary">Submit</button>
+        <!-- <button type="submit" class="btn but-primary">Submit</button> -->
       </form>
     
     </body>

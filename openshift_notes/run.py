@@ -71,6 +71,8 @@ class Quiz(object):
 	def __init__(self):
 		self.url = 1 # start the game at question/url 1
 		self.score = 0 # start with a score of zero
+		self.attempt = 0
+		self.hint = False
 
 	def get_url(self):
 		return self.url # return the current url
@@ -78,15 +80,25 @@ class Quiz(object):
 	def get_score(self):
 		return self.score # return the current score
 
+	def get_attempt(self):
+		return self.attempt 
+
 	def get_question_asked(self):
 		return str(self.url) # same as get url? 
+
+	def get_hint_status(self):
+		return self.hint 
 
 	def correct_answer(self):
 		self.url += 1 # if correct go to next question
 		self.score += 1 # if correct add one point
+		self.attempt = 0
 
 	def wrong_answer(self):
 		self.score -= 1 # if wrong subtract a point
+		self.attempt += 1
+		self.hint = True
+
 
 quiz = Quiz() # create an instance of Quiz named quiz
 
@@ -96,6 +108,7 @@ quiz = Quiz() # create an instance of Quiz named quiz
 def home(): #view function
 	quiz.score = 0 # if we go back home score resets to 0
 	quiz.url = 1 # url resets to 1
+	quiz.attempt = 0
 	return render_template('home.html') # serve the home template
 
 @app.route('/vmd_timestamp', methods=['GET','POST'])
@@ -112,7 +125,12 @@ def terminal():
 	question = match_question_with_url(quiz.get_url())  
 	score = str(quiz.get_score()) # get the current score 
 	# render a template with this info
-	return render_template('/terminal.html', question=question, score=score)
+	
+	HINT = ""
+	if quiz.get_hint_status() and quiz.get_attempt() >= 2:
+		HINT = question
+	return render_template('/terminal.html', question=question, score=score, hint=HINT)
+
 
 # controls answer submissino 
 @app.route('/submit_data', methods=['POST'])
