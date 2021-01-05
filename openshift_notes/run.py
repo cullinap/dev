@@ -41,16 +41,20 @@ def login():
 
 	return render_template('index.html')
 
+
 def match_question_with_url(number):
-	question = {}
-	with open ('./data/quiz_data.json', 'r') as json_data:
-		testData = json.load(json_data)
-		for obj in testData:
-			if obj['url'] == str(number):
-				question = obj
+	# function returns question based on int provided
+	question = {} # load question in a set
+	with open ('./data/quiz_data.json', 'r') as json_data: #json I/O
+		testData = json.load(json_data) # create the iterable
+		for obj in testData: # loop though each question obj
+			if obj['url'] == str(number): # if the obj url matches the int input
+				question = obj # set the question value to that obj
 
 	return question
 
+# getting an answer to match with question
+# most likely redundant, but can move later
 def match_answer_with_url(number):
 	answer = {}
 	with open ('./data/quiz_data.json', 'r') as json_data:
@@ -59,74 +63,76 @@ def match_answer_with_url(number):
 			if obj['url'] == str(number):
 				answer = obj
 
-	return answer['answer']
+	return answer['answer'] # same as above just return answer 
 
-
+# Quiz obj to store score, url, and updates 
+# essentially tracks and records current state of game
 class Quiz(object):
 	def __init__(self):
-		self.url = 1
-		self.score = 0
+		self.url = 1 # start the game at question/url 1
+		self.score = 0 # start with a score of zero
 
 	def get_url(self):
-		return self.url
+		return self.url # return the current url
 
 	def get_score(self):
-		return self.score
+		return self.score # return the current score
 
 	def get_question_asked(self):
-		return str(self.url)
+		return str(self.url) # same as get url? 
 
 	def correct_answer(self):
-		self.url += 1
-		self.score += 1
+		self.url += 1 # if correct go to next question
+		self.score += 1 # if correct add one point
 
 	def wrong_answer(self):
-		self.score -= 1 
+		self.score -= 1 # if wrong subtract a point
 
-quiz = Quiz()
+quiz = Quiz() # create an instance of Quiz named quiz
 
 # define a route listening at /home and execute a fn named home
 # accept the GET and POST HTTP methods
 @app.route('/home', methods=['GET','POST'])
 def home(): #view function
-	# serve an HTML template to the user which is 
-	# generated via jinja assuming we have a templates folder
-	# accepts one positinal argument which is the template to render
-	# also accepts kwargs values to be passed to the template
-	quiz.score = 0
-	quiz.url = 1
-	return render_template('home.html')
+	quiz.score = 0 # if we go back home score resets to 0
+	quiz.url = 1 # url resets to 1
+	return render_template('home.html') # serve the home template
 
 @app.route('/vmd_timestamp', methods=['GET','POST'])
 def vmd_timestamp():
-	question = match_question_with_url(quiz.get_url())
-	score = str(quiz.get_score())
-	# request object with method to access a route
-	# can be used to have one route serve multiple
-	# different responses depending on what method was used to
-	# call said route
-	
-
-		# accepts string which will be the path to
-		# redirect the user to 
+	# get url from data, pass current url from quiz instance
+	question = match_question_with_url(quiz.get_url())  
+	score = str(quiz.get_score()) # get the current score 
+	# render a template with this info
 	return render_template('/vmd_timestamp.html', question=question, score=score)
 
+@app.route('/terminal', methods=['GET','POST'])
+def terminal():
+	# get url from data, pass current url from quiz instance
+	question = match_question_with_url(quiz.get_url())  
+	score = str(quiz.get_score()) # get the current score 
+	# render a template with this info
+	return render_template('/terminal.html', question=question, score=score)
+
+# controls answer submissino 
 @app.route('/submit_data', methods=['POST'])
 def submit_data():
-	question = match_question_with_url(quiz.get_url())
-	score = str(quiz.get_score())
-	if request.method == 'POST':
+	question = match_question_with_url(quiz.get_url()) # get current question
+	score = str(quiz.get_score()) # get current score
+	if request.method == 'POST': # if I press the button
 		req = request.form # fetch info from form posted
-		answer = req.get('answer') # get username from form
+		answer = req.get('answer') # get username from form and set it to answer
+		# * POTENTIONALLY REDUNDANT * with question var above
 		if answer == match_answer_with_url(quiz.get_url()): # get answer from json
-			quiz.correct_answer()
+			quiz.correct_answer() # increement question score and url state
 		else:
-			quiz.wrong_answer()
-			redirect(url_for('vmd_timestamp'))
+			quiz.wrong_answer() # decrement score
+			# POTENTIALLY REDUNDANT? 
+			redirect(url_for('vmd_timestamp')) # redirect to quiz page
 
 	return redirect(url_for('vmd_timestamp'))
 
-
+# controls a home button to return well...home
 @app.route('/button', methods=['POST'])
 def button():
 	if request.method == 'POST':

@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html>
-<head>
- 	<title></title>
- 	<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+<html lang="en">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Tolkien Riddle Quiz</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" type="text/css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" type="text/css" />
 </head>
 	<body>
 		<h2>Vehicle info Dashboard Page 2</h2>
@@ -15,8 +19,9 @@
 						<h1>{{ score }}</h1>
 					{% endif %}
 					<hr>
+					<!-- jinja returning json data: question.answer gets the answer that is why the match_url_with_question doesn't look up value in dict-->
 					{% if question %}
-						<p>{{ question.riddle }}</p>
+						<p>{{ question.question }}</p>
 					{% endif %}
 					{% if answer %}
 						<p>{{ question.answer }}</p>
@@ -33,11 +38,29 @@
 							<button type="submit" class="btn but-primary">Submit</button>
 						</div>
 					</form>
+
+				
+					  <!-- define a division of a section class styles it div is block element-->  
+					  <div class="shell-wrap">
+					  	<ul class="shell-body">
+					  		<li> <!-- tag a list item -->
+					  			<!-- span is inline element, can be used to change the style--> 
+					    		<span id="path">c:/&nbsp;>&nbsp;</span>
+					    		<!-- field where user can enter data --> 
+					    		<input type="text" id="input" class="terminal">
+					    	</li>
+						</ul>
+					 </div>
+
+					 <!-- jinja to detect the answer variable if it exists--> 
 					{% if answer %}
+						<!-- paragraph tag with class style, jinja variable as text -->
 						<p class="text-danger float-right">{{ answer }}</p>
 					{% endif %}
 
+					<!-- div section with container style --> 
 					<div class="container">
+						<!-- submit button with url_for home using post method -->
     					<form action="{{ url_for('home') }}" method="post">
             				<input type="submit">
         				</form>
@@ -45,6 +68,5 @@
 
 				</div>
 			</div>
-		</form>
 	</body>
 </html>

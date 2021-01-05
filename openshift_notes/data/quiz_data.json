@@ -1,6 +1,22 @@
 [
 	{
-        "riddle"       : "Perform a smoke test of the cluster to verify basic cluster functionality. Use a deployment configuration to create an application named hello-world-nginx.",
+        "question"     : "Perform a smoke test of the cluster to verify basic cluster functionality. Use a deployment configuration to create an application named hello-world-nginx.",
+        "answer"       : "oc new-app --name hello-world-nginx --as-deployment-config",
+        "url"          : "1",
+        "image_source" : "http://img.playbuzz.com/image/upload/f_auto,fl_lossy,q_auto/cdn/79003510-1e28-4caa-8067-0f850a1b30bb/20b6a5af-2be2-4592-81b1-0b27045fa05c.jpg"
+        
+    },
+
+    {
+        "question"     : "What is step 2?",
+        "answer"       : "oc new-app --name hello-world-nginx --as-deployment-config",
+        "url"          : "1",
+        "image_source" : "http://img.playbuzz.com/image/upload/f_auto,fl_lossy,q_auto/cdn/79003510-1e28-4caa-8067-0f850a1b30bb/20b6a5af-2be2-4592-81b1-0b27045fa05c.jpg"
+        
+    },
+
+    {
+        "question"     : "Perform a smoke test of the cluster to verify basic cluster functionality. Use a deployment configuration to create an application named hello-world-nginx.",
         "answer"       : "oc new-app --name hello-world-nginx --as-deployment-config",
         "url"          : "1",
         "image_source" : "http://img.playbuzz.com/image/upload/f_auto,fl_lossy,q_auto/cdn/79003510-1e28-4caa-8067-0f850a1b30bb/20b6a5af-2be2-4592-81b1-0b27045fa05c.jpg"
@@ -8,7 +24,7 @@
     },
 
       {
-        "riddle"       : "What has roots as nobody sees, Is taller than trees, Up up it goes, And yet never grows?",
+        "question"     : "What has roots as nobody sees, Is taller than trees, Up up it goes, And yet never grows?",
         "answer"       : "Mountain",
         "url"          : "2",
         "image_source" : "static/img/riddle-2.png",
