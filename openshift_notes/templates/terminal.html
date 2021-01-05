@@ -112,7 +112,10 @@
           <hr>
 
           {% if question %}
-                <p>{{ question.question }}</p>
+                <p>{{ question.main_question }}</p>
+          {% endif %}
+          {% if question %}
+                <p>{{ question.sub_question }}</p>
           {% endif %}
           {% if answer %}
                 <p>{{ question.answer }}</p>

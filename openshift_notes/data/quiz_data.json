@@ -1,33 +1,45 @@
 [
 	{
-        "question"     : "As the kubeadmin user, create the review-troubleshoot project. The password for the kubeadmin user is located in the /usr/local/etc/ocp4.config file on the RHT_OCP4_KUBEADM_PASSWD line. Perform all subsequent tasks in the review-troubleshoot project. ",
-        "answer"       : "source /usr/local/etc/ocp4.config",
-        "url"          : "1",
-        "hint"         : "did you refresh the env variables yet?"
+        "main_question"     : "As the kubeadmin user, create the review-troubleshoot project. The password for the kubeadmin user is located in the /usr/local/etc/ocp4.config file on the RHT_OCP4_KUBEADM_PASSWD line. Perform all subsequent tasks in the review-troubleshoot project. ",
+        "sub_question"      : "What is step 1?",
+        "answer"            : "source /usr/local/etc/ocp4.config",
+        "url"               : "1",
+        "hint"              : "did you refresh the env variables yet?"
         
     },
 
     {
-        "question"     : "Now login",
-        "answer"       : "oc login -u kubeadmin -p ${RHT_OCP4_KUBEADM_PASSWD} https://api.ocp4.example.com:6443",
-        "url"          : "2",
-        "image_source" : ""
+        "main_question"     : "As the kubeadmin user, create the review-troubleshoot project. The password for the kubeadmin user is located in the /usr/local/etc/ocp4.config file on the RHT_OCP4_KUBEADM_PASSWD line. Perform all subsequent tasks in the review-troubleshoot project. ",
+        "sub_question"      : "What is step 2?",
+        "answer"            : "oc login -u kubeadmin -p ${RHT_OCP4_KUBEADM_PASSWD} https://api.ocp4.example.com:6443",
+        "url"               : "2",
+        "hint"              : ""
         
     },
 
     {
-        "question"     : "Perform a smoke test of the cluster to verify basic cluster functionality. Use a deployment configuration to create an application named hello-world-nginx. The application source code is located in the hello-world-nginx subdirectory of the https://github.com/RedHatTraining/DO280-apps repository. Create a route for the application using any available hostname in the apps.ocp4.example.com subdomain, and then verify that the application responds to external requests. ",
-        "answer"       : "oc new-app --name hello-world-nginx --as-deployment-config https://github.com/RedHatTraining/DO280-apps --context-dir hello-world-nginx",
-        "url"          : "3",
-        "image_source" : ""
+        "main_question"     : "Perform a smoke test of the cluster to verify basic cluster functionality. Use a deployment configuration to create an application named hello-world-nginx. The application source code is located in the hello-world-nginx subdirectory of the https://github.com/RedHatTraining/DO280-apps repository. Create a route for the application using any available hostname in the apps.ocp4.example.com subdomain, and then verify that the application responds to external requests. ",
+        "sub_question"      : "What is step 1?",
+        "answer"            : "oc new-app --name hello-world-nginx --as-deployment-config https://github.com/RedHatTraining/DO280-apps --context-dir hello-world-nginx",
+        "url"               : "3",
+        "hint"              : ""
         
     },
 
-      {
-        "question"     : "Now create the route",
-        "answer"       : "oc expose service hello-world-nginx --hostname hello-world.apps.ocp4.example.com",
-        "url"          : "4",
-        "image_source" : ""
+    {
+        "main_question"     : "Perform a smoke test of the cluster to verify basic cluster functionality. Use a deployment configuration to create an application named hello-world-nginx. The application source code is located in the hello-world-nginx subdirectory of the https://github.com/RedHatTraining/DO280-apps repository. Create a route for the application using any available hostname in the apps.ocp4.example.com subdomain, and then verify that the application responds to external requests. ",
+        "sub_question"      : "What is step 2?",
+        "answer"            : "oc expose service hello-world-nginx --hostname hello-world.apps.ocp4.example.com",
+        "url"               : "4",
+        "hint"              : ""
+    }, 
+
+    {
+        "main_question"     : "Perform a smoke test of the cluster to verify basic cluster functionality. Use a deployment configuration to create an application named hello-world-nginx. The application source code is located in the hello-world-nginx subdirectory of the https://github.com/RedHatTraining/DO280-apps repository. Create a route for the application using any available hostname in the apps.ocp4.example.com subdomain, and then verify that the application responds to external requests. ",
+        "sub_question"      : "What is step 3?",
+        "answer"            : "oc expose service hello-world-nginx --hostname hello-world.apps.ocp4.example.com",
+        "url"               : "5",
+        "hint"              : ""
     }
 ]
 

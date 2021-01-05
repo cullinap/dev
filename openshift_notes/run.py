@@ -1,5 +1,6 @@
 import os
 import json
+import pandas as pd
 from flask import Flask, render_template, request, redirect, flash, url_for, session
 from datetime import timedelta
 import sqlalchemy
@@ -9,30 +10,10 @@ from helpers import Quiz, match_page_info_with_url
 app = Flask(__name__)
 app.secret_key = "temp_key" # set the secret key 
 quiz_data = 'data/quiz_data.json'
-
 quiz = Quiz("username")
 QUESTIONS = 2
 
-
-'''
--when login it goes to the first question
--html
-	-jinja
-		-remove it/comment it out
-	-html
-	-python code
-		-check score & url
-
-'''
-
-# routing
-# view
-# logic
-# route resolution
-
-
 # set home screen
-
 @app.route('/')
 def login():
 	if request.method == 'POST':
@@ -87,7 +68,11 @@ class Quiz(object):
 		return str(self.url) # same as get url? 
 
 	def get_hint_status(self):
-		return self.hint 
+		return self.hint
+
+	def skip_question(self):
+		self.url += 1 
+		self.attempt = 0
 
 	def correct_answer(self):
 		self.url += 1 # if correct go to next question
@@ -121,6 +106,9 @@ def vmd_timestamp():
 
 @app.route('/terminal', methods=['GET','POST'])
 def terminal():
+	if quiz.url > 1:
+		return redirect(url_for('final_score'))
+
 	# get url from data, pass current url from quiz instance
 	question = match_question_with_url(quiz.get_url())  
 	score = str(quiz.get_score()) # get the current score 
@@ -143,6 +131,8 @@ def submit_data():
 		# * POTENTIONALLY REDUNDANT * with question var above
 		if answer == match_answer_with_url(quiz.get_url()): # get answer from json
 			quiz.correct_answer() # increement question score and url state
+		elif quiz.attempt == 3:
+			quiz.skip_question()
 		else:
 			quiz.wrong_answer() # decrement score
 			# POTENTIALLY REDUNDANT? 
@@ -158,9 +148,16 @@ def button():
 	# if request.method == 'POST':
 	# 	return redirect(url_for('home'))
 
-
-
-
+@app.route('/final_score')
+def final_score():
+	riddle = match_page_info_with_url(quiz_data, quiz.get_url())
+	final_score = quiz.get_score()
+	with open('./data/data.txt', 'a') as file_object:
+		file_object.write(str(final_score))
+	#user = session['user']
+	#final_score = 0 #final_tally_message(quiz.get_score(), quiz.get_url())
+	flash(f'final score {final_score}')
+	return render_template('member.html', riddle=riddle, score=final_score)
 
 
 
@@ -201,13 +198,14 @@ def submit_answer():
 	return redirect(url_for('quiz_app'))
 
 
-@app.route('/final_score')
-def final_score():
-	riddle = match_page_info_with_url(quiz_data, quiz.get_url())
-	user = session['user']
-	final_score = 0 #final_tally_message(quiz.get_score(), quiz.get_url())
-	flash(f'final score {final_score}')
-	return render_template('member.html', riddle=riddle, user=user)
+# @app.route('/final_score')
+# def final_score():
+# 	riddle = match_page_info_with_url(quiz_data, quiz.get_url())
+# 	final_score = quiz.get_score()
+# 	#user = session['user']
+# 	#final_score = 0 #final_tally_message(quiz.get_score(), quiz.get_url())
+# 	flash(f'final score {final_score}')
+# 	return render_template('member.html', riddle=riddle, score=final_score)
 
 
 @app.route('/logout') # logout page
