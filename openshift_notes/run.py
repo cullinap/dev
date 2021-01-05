@@ -128,9 +128,9 @@ def submit_data():
 		else:
 			quiz.wrong_answer() # decrement score
 			# POTENTIALLY REDUNDANT? 
-			redirect(url_for('vmd_timestamp')) # redirect to quiz page
+			redirect(url_for('terminal')) # redirect to quiz page
 
-	return redirect(url_for('vmd_timestamp'))
+	return redirect(url_for('terminal'))
 
 # controls a home button to return well...home
 @app.route('/button', methods=['POST'])

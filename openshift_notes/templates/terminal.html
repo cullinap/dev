@@ -1,9 +1,11 @@
 <html>
   <head>
 
+      <!-- jquery -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
       </script>
-<!--     <script type="text/javascript">
+      <!-- abandonded javascript, was able to append-->
+    <!-- <script type="text/javascript">
         
         function myFunction(event) {
           var x = event.key;
@@ -20,6 +22,7 @@
         }
 
     </script> -->
+    <!-- html terminal display--> 
     <style type="text/css">
 
       .terminal{
@@ -52,40 +55,75 @@
       }
 
     </style>
-  </head>
-  <body>
-    <script>
-    $(function() {
-        $('.terminal').on('click', function(){
-           $('#input').focus();
-        });
+    </head>
+    <body>
+      <script>
+      // document.ready(function())
+      $(function() {
+          // $ is alias for jquery, syntax is $(selector).action();
+          // when you click on the field you get foccus 
+          $('.terminal').on('click', function(){
+             $('#input').focus();
+          });
 
-        $('#input').on('keydown',function search(e) {
-          if(e.keyCode == 13) {
-            // append your output to the history,
-            // here I just append the input
-            $('#history').append($(this).val()+'<br/>');
-            
-            // you can change the path if you want
-            // crappy implementation here, but you get the idea
-            if($(this).val().substring(0, 3) === 'cd '){
-              $('#path').html($(this).val().substring(3)+'&nbsp;>&nbsp;');
+          // if return key 
+          $('#input').on('keydown',function search(e) {
+            if(e.keyCode == 13) { 
+              // append your output to the history,
+              // here I just append the input
+              $('#history').append($(this).val()+'<br/>');
+              
+              // you can change the path if you want
+              // crappy implementation here, but you get the idea
+              if($(this).val().substring(0, 3) === 'cd '){
+                $('#path').html($(this).val().substring(3)+'&nbsp;>&nbsp;');
+              }
+              // clear the input
+              $('#input').val('');
             }
-            // clear the input
-            $('#input').val('');
-          }
+          });
         });
-      });
-    </script>
-    <div class="terminal">
-      <div id="history">
+      </script>
+
+      <div class="container">
+            <!-- submit button with url_for home using post method -->
+            <form action="{{ url_for('home') }}" method="post">
+                  <input type="submit">
+            </form>
+      </div>`
+
+      <div class="row">
+        <div class="col">
+          {% if score %}
+            <h1>{{ score }}</h1>
+          {% endif %}
+          <hr>
+
+          {% if question %}
+                <p>{{ question.question }}</p>
+          {% endif %}
+          {% if answer %}
+                <p>{{ question.answer }}</p>
+          {% endif %}
+        </div>
       </div>
-      <div class="line">
-        <span id="path">c:/&nbsp;>&nbsp;</span>
-        <input type="text" onkeydown="myFunction(event)" id="input">
-      </div>
-    </div>
-  </body>
+
+      <form action="/submit_data" method="POST">
+      <!-- outside container of terminal--> 
+        <div class="terminal">
+          <!-- pervious command of termiinal --> 
+          <div id="history">
+          </div>
+          <!-- current line of terminal, onkeydown="myFunction(event)" was the JS controller -->
+          <div class="line">
+            <span id="path">c:/&nbsp;>&nbsp;</span> <!-- c:/>--> 
+            <input type="text" id="answer" name="answer"> <!-- line input --> 
+          </div>
+        </div>
+        <button type="submit" class="btn but-primary">Submit</button>
+      </form>
+    
+    </body>
 </html>
 
 
