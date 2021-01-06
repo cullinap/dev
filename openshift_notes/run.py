@@ -106,6 +106,7 @@ def vmd_timestamp():
 
 @app.route('/terminal', methods=['GET','POST'])
 def terminal():
+	# quiz loops until last question
 	if quiz.url > 1:
 		return redirect(url_for('final_score'))
 
@@ -114,6 +115,8 @@ def terminal():
 	score = str(quiz.get_score()) # get the current score 
 	# render a template with this info
 	
+	# default hint status set to false, if there is a wrong answer and 2 attempts there will be a hint
+	# HINT is set to the question json from the current url and hint is loaded into jinja
 	HINT = ""
 	if quiz.get_hint_status() and quiz.get_attempt() >= 2:
 		HINT = question
@@ -131,7 +134,7 @@ def submit_data():
 		# * POTENTIONALLY REDUNDANT * with question var above
 		if answer == match_answer_with_url(quiz.get_url()): # get answer from json
 			quiz.correct_answer() # increement question score and url state
-		elif quiz.attempt == 3:
+		elif quiz.attempt == 3:  # check the attempts in the quiz class and if eq to 3 skip the question
 			quiz.skip_question()
 		else:
 			quiz.wrong_answer() # decrement score
