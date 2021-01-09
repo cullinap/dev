@@ -133,7 +133,7 @@ def terminal():
 		HINT = ""
 		if quiz.get_hint_status() and quiz.get_attempt() >= 2:
 			HINT = question
-		return render_template('/terminal.html', question=question, score=score, hint=HINT)
+		return render_template('/terminal.html', question=question, score=score, hint=HINT, user=user)
 
 # 6 Jan 20: also added in main question/sub question into json
 
