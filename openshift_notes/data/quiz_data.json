@@ -13,7 +13,7 @@
         "sub_question"      : "What is step 2?",
         "answer"            : "oc login -u kubeadmin -p ${RHT_OCP4_KUBEADM_PASSWD} https://api.ocp4.example.com:6443",
         "url"               : "2",
-        "hint"              : ""
+        "hint"              : "login"
         
     },
 
@@ -22,7 +22,7 @@
         "sub_question"      : "What is step 1?",
         "answer"            : "oc new-app --name hello-world-nginx --as-deployment-config https://github.com/RedHatTraining/DO280-apps --context-dir hello-world-nginx",
         "url"               : "3",
-        "hint"              : ""
+        "hint"              : "create a new app"
         
     },
 
@@ -31,15 +31,74 @@
         "sub_question"      : "What is step 2?",
         "answer"            : "oc expose service hello-world-nginx --hostname hello-world.apps.ocp4.example.com",
         "url"               : "4",
-        "hint"              : ""
+        "hint"              : "expose the route"
     }, 
 
     {
         "main_question"     : "Perform a smoke test of the cluster to verify basic cluster functionality. Use a deployment configuration to create an application named hello-world-nginx. The application source code is located in the hello-world-nginx subdirectory of the https://github.com/RedHatTraining/DO280-apps repository. Create a route for the application using any available hostname in the apps.ocp4.example.com subdomain, and then verify that the application responds to external requests. ",
         "sub_question"      : "What is step 3?",
-        "answer"            : "oc expose service hello-world-nginx --hostname hello-world.apps.ocp4.example.com",
+        "answer"            : "oc get pods",
         "url"               : "5",
-        "hint"              : ""
+        "hint"              : "check to see if the pod is running"
+    },
+
+    {
+        "main_question"     : "Perform a smoke test of the cluster to verify basic cluster functionality. Use a deployment configuration to create an application named hello-world-nginx. The application source code is located in the hello-world-nginx subdirectory of the https://github.com/RedHatTraining/DO280-apps repository. Create a route for the application using any available hostname in the apps.ocp4.example.com subdomain, and then verify that the application responds to external requests. ",
+        "sub_question"      : "What is step 4?",
+        "answer"            : "curl -s http://hello-world.apps.ocp4.example.com | grep Hello",
+        "url"               : "6",
+        "hint"              : "verify access to the application"
+    },
+
+    {
+        "main_question"     : "Configure the cluster to use an HTPasswd identity provider. The name of the identity provider is cluster-users. The identity provider reads htpasswd credentials stored in the compreview-users secret. Ensure that four user accounts exist: admin, leader, developer, and qa-engineer. All user accounts must use review as the password. Add the cluster-admin role to the admin user.",
+        "sub_question"      : "What is step 1?",
+        "answer"            : "touch /tmp/cluster-users",
+        "url"               : "7",
+        "hint"              : "Create a temporary htpasswd authentication file "
+    },
+
+    {
+        "main_question"     : "Configure the cluster to use an HTPasswd identity provider. The name of the identity provider is cluster-users. The identity provider reads htpasswd credentials stored in the compreview-users secret. Ensure that four user accounts exist: admin, leader, developer, and qa-engineer. All user accounts must use review as the password. Add the cluster-admin role to the admin user.",
+        "sub_question"      : "What is step 2",
+        "answer"            : "for user in admin leader developer qa-engineer; do htpasswd -B -b /tmp/cluster-users ${user} review; done;",
+        "url"               : "8",
+        "hint"              : "Populate the /tmp/cluster-users file with the required user and password values"
+    },
+
+    {
+        "main_question"     : "Configure the cluster to use an HTPasswd identity provider. The name of the identity provider is cluster-users. The identity provider reads htpasswd credentials stored in the compreview-users secret. Ensure that four user accounts exist: admin, leader, developer, and qa-engineer. All user accounts must use review as the password. Add the cluster-admin role to the admin user.",
+        "sub_question"      : "What is step 3?",
+        "answer"            : "oc get oauth cluster -o yaml > /tmp/oauth.yaml",
+        "url"               : "9",
+        "hint"              : "Export the existing OAuth resource to a YAML file."
+    },
+
+    {
+        "main_question"     : "Configure the cluster to use an HTPasswd identity provider. The name of the identity provider is cluster-users. The identity provider reads htpasswd credentials stored in the compreview-users secret. Ensure that four user accounts exist: admin, leader, developer, and qa-engineer. All user accounts must use review as the password. Add the cluster-admin role to the admin user.",
+        "sub_question"      : "What is step 4?",
+        "answer"            : "oc create secret generic compreview-users --from-file htpasswd=/tmp/cluster-users -n openshift-config",
+        "url"               : "10",
+        "hint"              : "Edit the /tmp/oauth.yaml file to add the HTPasswd identity provider definition to the identityProviders list. Set the identity provider name to cluster-users, and set the fileData name to compreview-users. ",
+        "yaml"              : ""
+    },
+
+    {
+        "main_question"     : "Configure the cluster to use an HTPasswd identity provider. The name of the identity provider is cluster-users. The identity provider reads htpasswd credentials stored in the compreview-users secret. Ensure that four user accounts exist: admin, leader, developer, and qa-engineer. All user accounts must use review as the password. Add the cluster-admin role to the admin user.",
+        "sub_question"      : "What is step 5?",
+        "answer"            : "",
+        "url"               : "11",
+        "hint"              : "Replace the existing OAuth resource with the resource definition in the modified file: ",
+        "yaml"              : ""
+    },
+
+    {
+        "main_question"     : "Configure the cluster to use an HTPasswd identity provider. The name of the identity provider is cluster-users. The identity provider reads htpasswd credentials stored in the compreview-users secret. Ensure that four user accounts exist: admin, leader, developer, and qa-engineer. All user accounts must use review as the password. Add the cluster-admin role to the admin user.",
+        "sub_question"      : "What is step 5?",
+        "answer"            : "oc adm policy add-cluster-role-to-user cluster-admin admin",
+        "url"               : "12",
+        "hint"              : "Assign the admin user the cluster-admin role.",
+        "yaml"              : ""
     }
 ]
 

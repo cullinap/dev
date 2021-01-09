@@ -1,5 +1,6 @@
 import os
 import json
+from datetime import datetime
 import pandas as pd
 from flask import Flask, render_template, request, redirect, flash, url_for, session
 from datetime import timedelta
@@ -13,14 +14,14 @@ quiz_data = 'data/quiz_data.json'
 quiz = Quiz("username")
 QUESTIONS = 2
 
-# set home screen
-@app.route('/')
-def login():
-	if request.method == 'POST':
-		username = request.form['username'].strip()
-		return redirect(url_for('quiz_app'))
+# # set home screen
+# @app.route('/')
+# def login():
+# 	if request.method == 'POST':
+# 		username = request.form['username'].strip()
+# 		return redirect(url_for('quiz_app'))
 
-	return render_template('index.html')
+# 	return render_template('index.html')
 
 
 def match_question_with_url(number):
@@ -53,6 +54,7 @@ class Quiz(object):
 		self.url = 1 # start the game at question/url 1
 		self.score = 0 # start with a score of zero
 		self.attempt = 0
+		self.total_attempts = 0
 		self.hint = False
 
 	def get_url(self):
@@ -63,6 +65,9 @@ class Quiz(object):
 
 	def get_attempt(self):
 		return self.attempt 
+
+	def total_attempts(self):
+		return self.total_attempts 
 
 	def get_question_asked(self):
 		return str(self.url) # same as get url? 
@@ -78,10 +83,12 @@ class Quiz(object):
 		self.url += 1 # if correct go to next question
 		self.score += 1 # if correct add one point
 		self.attempt = 0
+		self.total_attempts += 1
 
 	def wrong_answer(self):
 		self.score -= 1 # if wrong subtract a point
 		self.attempt += 1
+		self.total_attempts += 1
 		self.hint = True
 
 
@@ -89,39 +96,46 @@ quiz = Quiz() # create an instance of Quiz named quiz
 
 # define a route listening at /home and execute a fn named home
 # accept the GET and POST HTTP methods
-@app.route('/home', methods=['GET','POST'])
+@app.route('/', methods=['GET','POST'])
 def home(): #view function
-	quiz.score = 0 # if we go back home score resets to 0
-	quiz.url = 1 # url resets to 1
-	quiz.attempt = 0
+	if request.method == "POST":
+		user = request.form["name"]
+		session["user"] = user
+		quiz.score = 0 # if we go back home score resets to 0
+		quiz.url = 1 # url resets to 1
+		quiz.attempt = 0
+		quiz.total_attempts = 0
 	return render_template('home.html') # serve the home template
 
-@app.route('/vmd_timestamp', methods=['GET','POST'])
-def vmd_timestamp():
-	# get url from data, pass current url from quiz instance
-	question = match_question_with_url(quiz.get_url())  
-	score = str(quiz.get_score()) # get the current score 
-	# render a template with this info
-	return render_template('/vmd_timestamp.html', question=question, score=score)
+# @app.route('/vmd_timestamp', methods=['GET','POST'])
+# def vmd_timestamp():
+# 	# get url from data, pass current url from quiz instance
+# 	question = match_question_with_url(quiz.get_url())  
+# 	score = str(quiz.get_score()) # get the current score 
+# 	# render a template with this info
+# 	return render_template('/vmd_timestamp.html', question=question, score=score)
 
 @app.route('/terminal', methods=['GET','POST'])
 def terminal():
 	# quiz loops until last question
-	if quiz.url > 1:
-		return redirect(url_for('final_score'))
+	if "user" in session:
+		user = session["user"]
+		if quiz.url > 1:
+			return redirect(url_for('final_score'))
 
-	# get url from data, pass current url from quiz instance
-	question = match_question_with_url(quiz.get_url())  
-	score = str(quiz.get_score()) # get the current score 
-	# render a template with this info
-	
-	# default hint status set to false, if there is a wrong answer and 2 attempts there will be a hint
-	# HINT is set to the question json from the current url and hint is loaded into jinja
-	HINT = ""
-	if quiz.get_hint_status() and quiz.get_attempt() >= 2:
-		HINT = question
-	return render_template('/terminal.html', question=question, score=score, hint=HINT)
+		# get url from data, pass current url from quiz instance
+		question = match_question_with_url(quiz.get_url())  
+		score = str(quiz.get_score()) # get the current score 
+		# render a template with this info
+		
+		# default hint status set to false, if there is a wrong answer and 2 attempts there will be a hint
+		# HINT is set to the question json from the current url and hint is loaded into jinja
+		HINT = ""
+		if quiz.get_hint_status() and quiz.get_attempt() >= 2:
+			HINT = question
+		return render_template('/terminal.html', question=question, score=score, hint=HINT)
 
+# 6 Jan 20: also added in main question/sub question into json
 
 # controls answer submissino 
 @app.route('/submit_data', methods=['POST'])
@@ -155,18 +169,18 @@ def button():
 def final_score():
 	riddle = match_page_info_with_url(quiz_data, quiz.get_url())
 	final_score = quiz.get_score()
+	total_attempts = quiz.total_attempts
+	date_and_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 	with open('./data/data.txt', 'a') as file_object:
-		file_object.write(str(final_score))
+		file_object.write(str(date_and_time) + (": ") + str(final_score) + (" ") + str(total_attempts) + '\n')
+
 	#user = session['user']
 	#final_score = 0 #final_tally_message(quiz.get_score(), quiz.get_url())
 	flash(f'final score {final_score}')
 	return render_template('member.html', riddle=riddle, score=final_score)
 
 
-
-
 ################## OLD STUFF ########################
-
 
 
 @app.route('/quiz', methods=['GET','POST'])
