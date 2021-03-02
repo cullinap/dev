@@ -99,13 +99,22 @@ quiz = Quiz() # create an instance of Quiz named quiz
 @app.route('/', methods=['GET','POST'])
 def home(): #view function
 	if request.method == "POST":
-		user = request.form["name"]
-		session["user"] = user
+		for key, value in request.form.items():
+			print(f'{key}: {value}')
+
+		session['user'] = request.form['user']
+
 		quiz.score = 0 # if we go back home score resets to 0
 		quiz.url = 1 # url resets to 1
 		quiz.attempt = 0
 		quiz.total_attempts = 0
-	return render_template('home.html') # serve the home template
+		return redirect(url_for('terminal'))
+
+	return render_template('home.html')  
+		#return redirect(url_for('home'))
+		#return render_template('home.html') # serve the home template
+	# else:
+	# 	return render_template('home.html') 
 
 # @app.route('/vmd_timestamp', methods=['GET','POST'])
 # def vmd_timestamp():
@@ -117,23 +126,30 @@ def home(): #view function
 
 @app.route('/terminal', methods=['GET','POST'])
 def terminal():
-	# quiz loops until last question
-	if "user" in session:
-		user = session["user"]
-		if quiz.url > 1:
-			return redirect(url_for('final_score'))
+	render_template('/add_stock.html')
+	# if quiz.url > 1:
+	# 	return redirect(url_for('final_score'))
 
-		# get url from data, pass current url from quiz instance
-		question = match_question_with_url(quiz.get_url())  
-		score = str(quiz.get_score()) # get the current score 
-		# render a template with this info
-		
-		# default hint status set to false, if there is a wrong answer and 2 attempts there will be a hint
-		# HINT is set to the question json from the current url and hint is loaded into jinja
-		HINT = ""
-		if quiz.get_hint_status() and quiz.get_attempt() >= 2:
-			HINT = question
-		return render_template('/terminal.html', question=question, score=score, hint=HINT, user=user)
+
+	# # get url from data, pass current url from quiz instance
+	# question = match_question_with_url(quiz.get_url())  
+	# score = str(quiz.get_score()) # get the current score 
+	# render a template with this info
+
+
+
+
+
+	#return render_template('/terminal.html', question=question, score=score)
+
+	# default hint status set to false, if there is a wrong answer and 2 attempts there will be a hint
+	# # HINT is set to the question json from the current url and hint is loaded into jinja
+	# HINT = ""
+	# if quiz.get_hint_status() and quiz.get_attempt() >= 2:
+	# 	HINT = question
+	# 	return render_template('/terminal.html', question=question, score=score, hint=HINT)
+
+
 
 # 6 Jan 20: also added in main question/sub question into json
 
@@ -171,16 +187,42 @@ def final_score():
 	final_score = quiz.get_score()
 	total_attempts = quiz.total_attempts
 	date_and_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+	user = session["user"]
 	with open('./data/data.txt', 'a') as file_object:
-		file_object.write(str(date_and_time) + (": ") + str(final_score) + (" ") + str(total_attempts) + '\n')
+		file_object.write(str(user) + (": ") + str(date_and_time) + (": ") + str(final_score) + (" ") + str(total_attempts) + '\n')
 
 	#user = session['user']
 	#final_score = 0 #final_tally_message(quiz.get_score(), quiz.get_url())
 	flash(f'final score {final_score}')
+	quiz.score = 0 # if we go back home score resets to 0
+	quiz.url = 1 # url resets to 1
+	quiz.attempt = 0
+	quiz.total_attempts = 0
+
 	return render_template('member.html', riddle=riddle, score=final_score)
 
 
 ################## OLD STUFF ########################
+
+@app.route("/add_stock", methods=['GET','POST'])
+def add_stock():
+	if request.method == 'POST':
+		for key, value in request.form.items():
+			print(f'{key} {value}')
+
+		session['stock_symbol'] = request.form['stock_symbol']
+		session['number_of_shares'] = request.form['number_of_shares']
+		session['purchase_price'] = request.form['purchase_price']
+		return redirect(url_for('list_stocks'))
+
+	return render_template('add_stock.html')
+
+@app.route('/stocks/')
+def list_stocks():
+	return render_template('stocks.html')
+ 
+
+
 
 
 @app.route('/quiz', methods=['GET','POST'])
@@ -231,7 +273,7 @@ def logout():
 	session.pop("user", None) # remove curent user session name
 	quiz.Score = 0
 	#session['url'] = 0
-	return redirect(url_for('login')) # got back to the login page
+	return redirect(url_for('/')) # got back to the login page
 
 
 # @app.route('/')

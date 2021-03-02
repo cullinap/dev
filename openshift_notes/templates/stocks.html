@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+	<h1>List of Stocks</h1>
+
+	<table>
+		<thead>
+			<tr>
+				<th>User</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<td>{{ session['user'] }}</td>
+		</tbody>
+	</table>
+</div>
+{% endblock %}
