@@ -127,27 +127,27 @@ def home(): #view function
 @app.route('/terminal', methods=['GET','POST'])
 def terminal():
 	render_template('/add_stock.html')
-	# if quiz.url > 1:
-	# 	return redirect(url_for('final_score'))
+	if quiz.url > 1:
+		return redirect(url_for('final_score'))
 
 
-	# # get url from data, pass current url from quiz instance
-	# question = match_question_with_url(quiz.get_url())  
-	# score = str(quiz.get_score()) # get the current score 
-	# render a template with this info
+	# get url from data, pass current url from quiz instance
+	question = match_question_with_url(quiz.get_url())  
+	score = str(quiz.get_score()) # get the current score 
+	#render a template with this info
 
 
 
 
 
-	#return render_template('/terminal.html', question=question, score=score)
+	return render_template('/terminal.html', question=question, score=score)
 
-	# default hint status set to false, if there is a wrong answer and 2 attempts there will be a hint
-	# # HINT is set to the question json from the current url and hint is loaded into jinja
-	# HINT = ""
-	# if quiz.get_hint_status() and quiz.get_attempt() >= 2:
-	# 	HINT = question
-	# 	return render_template('/terminal.html', question=question, score=score, hint=HINT)
+	#default hint status set to false, if there is a wrong answer and 2 attempts there will be a hint
+	# HINT is set to the question json from the current url and hint is loaded into jinja
+	HINT = ""
+	if quiz.get_hint_status() and quiz.get_attempt() >= 2:
+		HINT = question
+		return render_template('/terminal.html', question=question, score=score, hint=HINT)
 
 
 
