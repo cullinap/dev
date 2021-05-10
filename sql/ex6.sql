@@ -14,3 +14,11 @@ select pet.id, pet.name, pet.age, pet.dead
 		where person_pet.person_id = person_id and 
 		person.first_name = 'Zed'
 	);
+
+/* query to select my entries */
+select pet.id, pet.name, pet.age from pet, person, person_pet
+   where 
+   pet.id = person_pet.pet_id and 
+   person_pet.person_id = person.id and
+   person.first_name = 'pat';
+
