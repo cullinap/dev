@@ -45,6 +45,7 @@ insert into pet values (1, 'Gigantor', 'Robot', 1, 0);
 
 /* check the robot again */ 
 select * from pet;
+select * from person;
 
 
 
