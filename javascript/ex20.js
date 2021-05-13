@@ -29,4 +29,35 @@ const door = (hp) => {
 	// what kind of puzzle will they solze? 
 }
 
+const spider = (hp) => {
+	// they enter here, and the spider takes 10 hit points
+	// if they live then they can run away
+}
+
+const gold = (hp) => {
+	// end of the game they win if they get the gold 
+}
+
+const rope = (hp) => {
+	
+}
+
+const well = (hp) => {
+	say("You are walking through the woods and see a well");
+	say("Walking up to it and looking down you see a shiny thing at the bottom");
+	let next = ask(hp, "What do you do?");
+
+	if (next == "climb") {
+		say("You climb down the rope");
+		rope(hp);
+	} else if(next == "jump") {
+		say("Yikes! Let's see if you survive!");
+		hp = Math.floor(hp / 2);
+		rope(hp);
+	} else {
+		say("You can't do that here.");
+		well(hp);
+	}
+}
+
 
