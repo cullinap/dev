@@ -30,8 +30,20 @@ def print_maze(maze):
 
 print_maze(maze)
 
-def solve_mze(maze):
+def solve_maze(maze):
     return
+
+def solve_maze_helper(maze, sol, pos_row, pos_col):
+    # first get size of the maze
+    num_rows = len(maze)
+    num_cols = len(maze[0])
+
+    print(num_rows, num_cols)
+
+    # fi the robot already home? 
+
+solve_maze_helper(maze, 0, 0, 0)    
+
 
 """
 solve_maze(maze)
