@@ -60,4 +60,7 @@ const well = (hp) => {
 	}
 }
 
+let hp = Math.floor(Math.random() * 10) + 1;
+
+
 
