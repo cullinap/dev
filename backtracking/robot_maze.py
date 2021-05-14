@@ -33,14 +33,27 @@ print_maze(maze)
 def solve_maze(maze):
     return
 
-def solve_maze_helper(maze, sol, pos_row, pos_col):
+def solve_maze_helper(maze, solution, pos_row, pos_col):
     # first get size of the maze
-    num_rows = len(maze)
-    num_cols = len(maze[0])
+    num_row = len(maze)
+    num_col = len(maze[0])
 
-    print(num_rows, num_cols)
+    # base case
 
-    # fi the robot already home? 
+    # if the robot already home? 
+    if pos_row == num_row - 1 and pos_col == num_col - 1:
+        return solution
+
+    # if robot out of bounds
+    if pos_row >= num_row or pos_col >= num_col:
+        return None
+
+    # if robot on X obstacle
+    if maze[pos_row][pos_col] == 'x':
+        return None
+
+    # recursive cases
+
 
 solve_maze_helper(maze, 0, 0, 0)    
 
