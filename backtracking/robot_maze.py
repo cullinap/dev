@@ -16,4 +16,19 @@
 # pos of robot
 # solution
 
+maze = [[",",".",".","."],
+        [",","x","x","x"],
+        [".",".",",","x"],
+        ["x","x",",","."]]
+
+def print_maze(maze):
+    return
+
+def solve_mze(maze):
+    return
+
+
+
+
+
 
