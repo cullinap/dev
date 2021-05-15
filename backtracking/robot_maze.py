@@ -30,10 +30,13 @@ def print_maze(maze):
 
 # print_maze(maze)
 
-def solve_maze(maze, solution, pos_row, pos_col):
+def solve_maze(maze):
+    if len(maze) < 1:
+        return None
+    if len(maze[0]) < 1:
+        return None
     #print(string)
-    print(solve_maze_helper(maze, solution, pos_row, pos_col)) 
-
+    return solve_maze_helper(maze, [], 0, 0)
 
 iteration = 0
 
@@ -48,46 +51,48 @@ def solve_maze_helper(maze, solution, pos_row, pos_col):
 
     # if the robot already home? 
     if pos_row == num_row - 1 and pos_col == num_col - 1:
-        print('finished')
+        print('finished', solution)
         return solution
 
     # if robot out of bounds
     if pos_row >= num_row or pos_col >= num_col:
-        print(solution, 'out of bounds')
+        print('out of bounds', solution)
         return None
 
     # if robot on X obstacle
     if maze[pos_row][pos_col] == 'x':
-        print(solution, 'hit obstacle')
+        print('hit obstacle', solution)
         return None
 
     # recursive cases
 
     # try going right
-    solution.append('r')
+    solution.append('r') 
+    print('going to the right', solution)
     solution_right = solve_maze_helper(maze, solution, pos_row, pos_col + 1)
 
     # if you go right and it works
     if solution_right is not None:
-        print(solution, 'right')
+        print('RIGHT', solution)
         return solution_right
     
     # if right does not work, backtrack and go down
     solution.pop()
+    print('backing up', solution)
     solution.append('d')
+    print('going down', solution)
     solution_down = solve_maze_helper(maze, solution, pos_row + 1,  pos_col)
 
     if solution_down is not None:
-        print(solution, 'down')
+        print('DOWN', solution)
         return solution_down
 
     # if no solution backtrack
+    print('backing up', solution)
     solution.pop()
-    print(solution, 'no solution')
     return None
 
-solve_maze(maze, [], 0, 0)
-
+solve_maze(maze)
 
 """
 solve_maze(maze)
