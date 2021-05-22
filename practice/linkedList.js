@@ -11,6 +11,7 @@ class linkedList {
 	constructor(head = null) {
 		this.head = head
 	}
+
 }
 
 let node1 = new listNode(2);
