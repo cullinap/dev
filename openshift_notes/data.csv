@@ -1,0 +1,28 @@
+﻿Question,Answer,
+"    Perform a smoke test of the cluster to verify basic cluster 
+    functionality. Use a deployment configuration to create an 
+    application named hello-world-nginx. The application source 
+    code is located in the hello-world-nginx subdirectory of the 
+    https://github.com/RedHatTraining/DO280-apps repository.
+    
+    Create a route for the application using any available 
+    hostname in the apps.ocp4.example.com subdomain, and 
+    then verify that the application responds to external requests.
+    
+    What is step 1?  ",oc new-app --name hello-world-nginx --as-deployment-config https://github.com/RedHatTraining/DO280-apps --context-dir hello-world-nginx,
+What is step 2?,Create a route to the application by exposing the hello-world-nginx service,
+What is the command for step 2?,oc expose service hello-world-nginx --hostname hello-world.apps.ocp4.example.com,
+What is step 3?,Wait until the application pod is running,
+What is the command for step 3?,oc get pods,
+What is step 4?,Verify access to the application,
+What is the command for step 4? ,curl -s http://hello-world.apps.ocp4.example.com | grep Hello,
+"Configure the cluster to use an HTPasswd identity provider. 
+    The name of the identity provider is cluster-users. The identity provider 
+    reads htpasswd credentials stored in the compreview-users secret.
+
+    Ensure that four user accounts exist: admin, leader, developer, and qa-engineer. 
+    All user accounts must use review as the password.
+
+    Add the cluster-admin role to the admin user. 
+    
+    What is step 1?",oc new-app --name hello-world-nginx --as-deployment-config https://github.com/RedHatTraining/DO280-apps --context-dir hello-world-nginx,

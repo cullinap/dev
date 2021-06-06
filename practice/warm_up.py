@@ -14,5 +14,6 @@ questions = {
     12:'create a vector and matrix in pytorch and numpy',
     13:'calculate the dot product of two vectors with pytorch',
     14:'multiple two matrices in pytorch',
-    15:'create a function named mySum that takes n integers and returns their sum: mySum(1,2,3) --> 6';
+    15:"create a function named mySum that takes n integers and returns their sum",
+    16:"sql: total time spend by each employee: https://leetcode.com/problems/find-total-time-spent-by-each-employee/submissions/"
 }
