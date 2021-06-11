@@ -1,3 +1,4 @@
+
 nums = [2,7,11,15]
 target = 9
 
@@ -8,10 +9,8 @@ def twoSums():
         complement = target - nums[i]
         if complement in hashTable.keys():
             secondIndex = nums.index(complement)
-            if i != secondIndex:
+            if secondIndex != i:
                 return sorted([i,secondIndex])
-        
-        hashTable.update({nums[i]: i})
+        hashTable.update({nums[i]:i}) 
 
 print(twoSums())
-
