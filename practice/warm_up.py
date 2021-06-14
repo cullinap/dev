@@ -15,5 +15,8 @@ questions = {
     13:'calculate the dot product of two vectors with pytorch',
     14:'multiple two matrices in pytorch',
     15:"create a function named mySum that takes n integers and returns their sum",
-    16:"sql: total time spend by each employee: https://leetcode.com/problems/find-total-time-spent-by-each-employee/submissions/"
+    16:"sql: total time spend by each employee: https://leetcode.com/problems/find-total-time-spent-by-each-employee/submissions/",
+    17:"select integer columns from the dataframe, then select integers and objects",
+    18:"reorder the column names by alphabetical order and reverse alpha order",
+    19:"display the number of non-missing values in the columns"
 }

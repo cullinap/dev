@@ -1,16 +1,16 @@
 
-nums = [2,7,11,15]
-target = 9
+n = 3 
 
-def twoSums():
-    hashTable = {}
 
-    for i in range(len(nums)):
-        complement = target - nums[i]
-        if complement in hashTable.keys():
-            secondIndex = nums.index(complement)
-            if secondIndex != i:
-                return sorted([i,secondIndex])
-        hashTable.update({nums[i]:i}) 
+def stairs():
+    if n <= 2:
+        return n
 
-print(twoSums())
+    res, step_1, step_2 = 0,1,2
+    for i in range(2,n):
+        res = step_2 + step_1
+        step_1 = step_2
+        step_2 = res
+    return res    
+
+print(stairs())
