@@ -1,16 +1,19 @@
 
-n = 3 
+nums = [2,7,11,15]
+target = 9
+hashTable = {}
 
 
-def stairs():
-    if n <= 2:
-        return n
+for i in range(len(nums)):
+    complement = target - nums[i]
+    if complement in hashTable.keys():
+        secondIndex = nums.index(complement)
+        if i != secondIndex:
+            print(sorted([i,secondIndex]))
+    hashTable.update({nums[i]:i})        
 
-    res, step_1, step_2 = 0,1,2
-    for i in range(2,n):
-        res = step_2 + step_1
-        step_1 = step_2
-        step_2 = res
-    return res    
 
-print(stairs())
+
+
+
+

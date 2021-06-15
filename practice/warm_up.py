@@ -18,5 +18,8 @@ questions = {
     16:"sql: total time spend by each employee: https://leetcode.com/problems/find-total-time-spent-by-each-employee/submissions/",
     17:"select integer columns from the dataframe, then select integers and objects",
     18:"reorder the column names by alphabetical order and reverse alpha order",
-    19:"display the number of non-missing values in the columns"
+    19:"display the number of non-missing values in the columns",
+    20:"make a file called foo.txt with two lines in the terminal and then add a third line",
+    21:"ssh into @bandit.labs.overthewire.org with username bandit0, port 2220 and pw: bandit0",
+    22:"search the terminal history for all instances of ssh"
 }

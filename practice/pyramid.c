@@ -1,23 +1,22 @@
 #include <stdio.h>
 
 int main() {
-	int i,j;
 
-	char end,alphabet = 'A';
+	int i,j, rows;
 
-	printf("Enter the letter your would like to end on: ");
-	scanf("%s", &end);
+	printf("Enter the number of rows: ");
+	scanf("%i", &rows);
 
-	for(i=1; i<=(end - 'A' + 1); ++i) {
+	for(i=rows; i>=1; --i) {
 		for(j=1; j<=i; ++j) {
-			printf("%c", alphabet);
+			printf("%i", j);
 		}
 
-		++alphabet;
 		printf("\n");
 	}
 
 	return 0;
 }
+
 
 
