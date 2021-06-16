@@ -21,5 +21,10 @@ questions = {
     19:"display the number of non-missing values in the columns",
     20:"make a file called foo.txt with two lines in the terminal and then add a third line",
     21:"ssh into @bandit.labs.overthewire.org with username bandit0, port 2220 and pw: bandit0",
-    22:"search the terminal history for all instances of ssh"
+    22:"search the terminal history for all instances of ssh",
+    23:"create a binary tree node and class, add 7 nodes and print them in preorder traversal",
+    24:"create two dataframes with similar keys and random data, do an inner join in both pandas and sql",
+    25:"in the mode sql crunchbase database return value counts for each item in category code and order by highest to lowest",
+    26:"in the mode sql crunchbase database return value counts for each item in category code and order by highest to lowest where the category begins with s or b",
+    27:"select only the columns in the dataframe that are float64"
 }
