@@ -26,5 +26,9 @@ questions = {
     24:"create two dataframes with similar keys and random data, do an inner join in both pandas and sql",
     25:"in the mode sql crunchbase database return value counts for each item in category code and order by highest to lowest",
     26:"in the mode sql crunchbase database return value counts for each item in category code and order by highest to lowest where the category begins with s or b",
-    27:"select only the columns in the dataframe that are float64"
+    27:"select only the columns in the dataframe that are float64",
+    28:"print PEOPLE = [('Donald', 'Trump', 7.85), ('Vladimir', 'Putin', 3.626), ('Jinping', 'Xi', 10.603)] in alpha order by last name and round the numbers to the nearest 2 decimal places",
+    29:"find the word in the list words = ['this', 'is', 'an', 'elementary', 'test', 'example'] with the most repeated elements",
+    30:"alphabetize the following list of dictionarys: [{'first':'Donald','last':'Trump'},{'first': 'Vladimir', 'last': 'Putin'}]",
+    40:"write a function that sums --> mysum(10, 20, 30, 40) or mysum('a', 'b', 'c', 'd')"
 }

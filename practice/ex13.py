@@ -1,8 +1,19 @@
-from collections import Counter
+import operator
+
+PEOPLE = [('Donald','Trump', 7.85),
+          ('Vladimir', 'Putin', 3,626),
+          ('Jinping', 'Xi', 10.603)
+         ]
 
 
-def most_repeating_word(words):
-    return max(words, key=lambda x: Counter(x).most_common(1)[0][1])
+def format_sort_records(record):
+    
+    output = []
+    template = '{1:10} {0:10} {2:5.2f}'
+    for person in sorted(record, key=operator.itemgetter(1,0)):
+        output.append(template.format(*person))
 
-WORDS = ['this','is','an','elementary','test','example']
-print(most_repeating_word(WORDS))
+    return output    
+
+print('\n'.join(format_sort_records(PEOPLE)))        
+
